@@ -1,0 +1,196 @@
+import os
+
+
+class Drama: # class Drama
+    # constructor dengan parameter judul, tahun, episode, genre, status
+    def __init__(self, judul, tahun, episode, genre, status):
+        self.judul = judul
+        self.tahun = tahun
+        self.episode = episode
+        self.genre = genre
+        self.status = status
+        self.next = None
+
+class LinkedList: # class LinkedList
+    # constructor dengan parameter head
+    def __init__(self):
+        self.head = None
+        self.history_masuk = []
+        self.history_hapus = []
+
+    # method untuk menambahkan drama
+    def tambah_drama(self, drama):
+        if not self.head: # jika head kosong
+            self.head = drama # drama akan menjadi head
+        else: # jika head tidak kosong
+            current = self.head # current akan menjadi head
+            while current.next: # jika current.next tidak kosong
+                current = current.next # current akan menjadi current.next
+            current.next = drama # drama akan menjadi current.next
+        self.history_masuk.append(drama.judul) # drama.judul akan ditambahkan ke history_masuk  
+
+    # method untuk menghapus drama
+    def hapus_drama(self, judul): # parameter judul
+        if not self.head:
+            print("Tidak ada drama.")
+            return
+        if self.head.judul == judul:
+            self.history_hapus.append(self.head.judul)
+            self.head = self.head.next
+            return
+        current = self.head
+        while current.next:
+            if current.next.judul == judul:
+                self.history_hapus.append(current.next.judul)
+                current.next = current.next.next
+                return
+            current = current.next
+        print("Judul drama itu udah nggada.")
+
+
+    # method untuk menampilkan drama berdasarkan halaman
+    # default halaman = 1 dan per_halaman = 5
+    # dengan menampilkan 5 drama per halaman
+    def tampil_drama(self, halaman = 1, per_halaman = 5):
+        start = (halaman - 1) * per_halaman # start = (halaman - 1) * per_halaman
+        end = start + per_halaman # end = start + per_halaman
+        current = self.head # current akan menjadi head
+        drama_list = [] # drama_list akan menjadi list kosong
+        while current: # jika current tidak kosong
+            drama_list.append(current) # current akan ditambahkan ke drama_list
+            current = current.next # current akan menjadi current.next
+        if start >= len(drama_list): # jika start lebih besar atau sama dengan panjang drama_list
+            return None # mengembalikan nilai None
+        else: # jika start tidak lebih besar atau sama dengan panjang drama_list
+            return drama_list[start:end] # mengembalikan nilai drama_list[start:end]
+
+    def tampil_history_masuk(self):
+        if not self.history_masuk:
+            print("Belum ada drama yang diupdate .")
+        else:
+            print("Daftar drama yang diupdate :")
+            print("---------------------------")
+            for judul in self.history_masuk:
+                print(judul)
+
+    def tampil_history_hapus(self):
+        if not self.history_hapus:
+            print("Belum ada drama yang di1dihapus.")
+        else:
+            print("Daftar drama yang dihapus:")
+            print("------------------------------")
+            for judul in self.history_hapus:
+                print(judul)
+
+linked_list = LinkedList()
+
+
+def tambah_drama():
+    judul = input("Masukkan judul drama: ")
+    tahun= input("Masukkan tahun rilis: ")
+    episode = input("Masukkan jumlah episode: ")
+    genre = input("Masukkan genre: ")
+    status = input("Masukkan status drama [on going/complete]: ")
+    drama = Drama (judul, tahun, episode, genre, status)
+    
+    linked_list.tambah_drama(drama)
+    print("drama udah ditambahin!")
+
+def hapus_drama():
+    judul = input("Masukkan judul Drama yang mau dihapus: ")
+    if linked_list.hapus_drama(judul):
+        print("Drama ", judul, "udah dihapus!")
+    else:
+        print("Drama ", judul, " udah dihapus!.")
+
+def tampil_drama():
+    halaman = 1
+    while True:
+        drama_list = linked_list.tampil_drama(halaman=halaman)
+        if drama_list:
+
+            for drama in drama_list:
+                print(f"Tahun: {drama.tahun}")
+                print(f"Judul: {drama.judul}")
+                print(f"Episode: {drama.episode}")
+                print(f"Genre: {drama.genre}")
+                print(f"Status: {drama.status}")
+                print("\n====================================\n")
+
+            print(f"Halaman {halaman}")
+        else:
+            print("Ngga ada drama.")
+            break
+
+        aksi = input("[n] Next [p] Previous [q] Quit\nAksi: ")
+        if aksi.lower() == "n":
+            halaman += 1
+        elif aksi.lower() == "p" and halaman > 1:
+            halaman -= 1
+        else:
+            break
+
+def login(username, password):
+    users = {
+        "karin" : "29",
+        "depa" : "34",
+        "step" : "37"
+    }
+
+    if username in users and users[username] == password :
+        return True
+    
+    else:
+        return False
+
+if __name__ == '__main__':
+    os.system("cls")
+    print("Login dulu nich minda ♡  \n\n")
+    username = input("Hallo karyawan tercinta, masukkan username kamu ya!: ")
+    password = input("Jangan lupa pasword nya!: ")
+
+    if(login(username, password)):
+        os.system('cls')
+        while True:
+            print("=== SELAMAT BEKERJA MINDA ===")
+            print("1. Tambah drama")
+            print("2. Hapus drama")
+            print("3. Tampilkan daftar drama")
+            print("4. Tampilkan history drama yang ditambahkan")
+            print("5. Tampilkan history drama yang dihapus")
+            print("6. Keluar")
+            pilihan = input("Masukkan pilihan: ")
+            if pilihan == "1":
+                os.system("cls")
+                print("\n=== Tambah drama ===\n")
+
+                tambah_drama()
+
+            elif pilihan == "2":
+                os.system("cls")
+                print("\n=== Hapus drama ===\n")
+
+                hapus_drama()
+
+            elif pilihan == "3":
+                print("\n=== List drama ===\n")
+
+                tampil_drama()
+            
+            elif pilihan == "4":
+                print("\n=== History drama yang ditambahkan ===\n")
+
+                linked_list.tampil_history_masuk()
+
+            elif pilihan == "5":
+                print("\n=== History drama yang Dihapus ===\n")
+
+                linked_list.tampil_history_hapus()
+
+            elif pilihan == "6":
+                break
+            else:
+                print("Pilihan tidak valid.")
+
+    else:
+        print("Otentikasi Gagal. Silakan coba kembali")
