@@ -226,7 +226,7 @@ class LinkedDrakor:
         return values
 
 def printDict(array,indexDrakor):
-    print("Detail Drakoe")
+    print("Detail Drakor")
     print("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈")
     print(" Judul        : {}".format(array[indexDrakor]["Judul"]))
     print(" Episode      : {}".format(array[indexDrakor]["Episode"]))
@@ -270,8 +270,15 @@ def tampil_drama():
     cursor = mydb.cursor()
     cursor.execute("SELECT * FROM watchlist")
     result = cursor.fetchall()
-    for data in result:
-        print(data)
+    if len(result) == 0:
+        print("Tidak ada drama di watchlist saat ini.")
+    else:
+        print("==============================================================================================")
+        print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
+        print("==============================================================================================")
+        for data in result:
+            print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
+        print("==============================================================================================")
 
 # SEARCH
 def jumpSearch( array , namadrakor , n ):
