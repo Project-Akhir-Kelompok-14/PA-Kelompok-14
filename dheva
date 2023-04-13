@@ -1,44 +1,34 @@
 import pwinput
-import os
 import sys
 import math
+import os
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host="sql12.freesqldatabase.com",
-    user="sql12610934",
-    password="DagRZuPjHb",
-    database="sql12610934"    
+    host="db4free.net",
+    user="kelompok14pa",
+    password="sukseskelompok14",
+    database="kelompok14pa"    
 )
-# mycursor = mydb.cursor()
-
-# mycursor.execute("SELECT * FROM complete")
-
-# myresult = mycursor.fetchone()
-
-# print(myresult)
 #LINKED LIST
-class NodeDrakor: # class Drama
-    # constructor dengan parameter judul, tahun, episode, genre, status
-    def __init__(self, judul, tahun, episode, genre, keterangan):
-        self.judul = judul
-        self.tahun = tahun
-        self.episode = episode
-        self.genre = genre
-        self.keterangan = keterangan
+class NodeDrakor:
+    def __init__(self, Judul, Episode, Genre,
+                 Tahun, Keterangan):
+        self.Judul = Judul
+        self.Episode = Episode
+        self.Genre = Genre
+        self.Tahun = Tahun
+        self.Keterangan = Keterangan
         self.next = None
 
-class LinkedDrakor: # class LinkedList
-    # constructor dengan parameter head
+class LinkedDrakor:
     def __init__(self):
         self.head = None
-        self.history_masuk = []
-        self.history_hapus = []
         self.count = 0
 
     def getData(self, index):
         if index < 0 or index > self.count - 1:
-            print("Data tersebut tidak tersedia")
+            print("           Data tersebut tidak tersedia")
             return False
         else:
             nodeTampil = self.head
@@ -83,6 +73,18 @@ class LinkedDrakor: # class LinkedList
  
         temp = None
     
+    def insertData(self, Judul, Episode, Genre, Tahun, Keterangan):
+        if self.head is None:
+            self.head = NodeDrakor(Judul, Episode, Genre, Tahun, Keterangan)
+            self.count += 1
+
+        else:
+            nodeAkhir = self.head
+            while nodeAkhir.next is not None:
+                nodeAkhir = nodeAkhir.next
+            nodeAkhir.next = NodeDrakor(Judul, Episode, Genre, Tahun, Keterangan)
+            self.count += 1
+
     def tambah_drama(self, drama):
         if not self.head: # jika head kosong
             self.head = drama # drama akan menjadi head
@@ -91,7 +93,39 @@ class LinkedDrakor: # class LinkedList
             while current.next: # jika current.next tidak kosong
                 current = current.next # current akan menjadi current.next
             current.next = drama # drama akan menjadi current.next
-        self.history_masuk.append(drama.judul) # drama.judul akan ditambahkan ke history_masuk  
+
+    def hapus_drama(self, judul): # parameter judul
+        if not self.head:
+            print("Tidak ada drama.")
+            return
+        if self.head.judul == judul:
+            self.head = self.head.next
+            return
+        current = self.head
+        while current.next:
+            if current.next.judul == judul:
+                current.next = current.next.next
+                return
+            current = current.next
+        print("Judul drama itu udah nggada.")
+
+
+    # method untuk menampilkan drama berdasarkan halaman
+    # default halaman = 1 dan per_halaman = 5
+    # dengan menampilkan 5 drama per halaman
+    def tampil_drama(self, halaman = 1, per_halaman = 5):
+        start = (halaman - 1) * per_halaman # start = (halaman - 1) * per_halaman
+        end = start + per_halaman # end = start + per_halaman
+        current = self.head # current akan menjadi head
+        drama_list = [] # drama_list akan menjadi list kosong
+        while current: # jika current tidak kosong
+            drama_list.append(current) # current akan ditambahkan ke drama_list
+            current = current.next # current akan menjadi current.next
+        if start >= len(drama_list): # jika start lebih besar atau sama dengan panjang drama_list
+            return None # mengembalikan nilai None
+        else: # jika start tidak lebih besar atau sama dengan panjang drama_list
+            return drama_list[start:end] # mengembalikan nilai drama_list[start:end]
+
 
     def duplicate(self, judul):
         current = self.head
@@ -106,19 +140,14 @@ class LinkedDrakor: # class LinkedList
             print('Data Masih Kosong')
         else:
             print("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈")
-            print("                       LIST DRAKOR                           ")
+            print("                       LIST DRAKOR                      ")
             print("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈")
-            mycursor = mydb.cursor()
-            mycursor.execute("SELECT judul drama korea FROM complete")
-            myresult = mycursor.fetchall()
-
             nomor = 1
             nodeTampil = self.head
             while nodeTampil is not None:
-                for x in myresult:
-                    print(" {}. {}".format(nomor, nodeTampil.Judul))
-                    nomor += 1
-                    nodeTampil = nodeTampil.next
+                print(" {}. {}".format(nomor, nodeTampil.Judul))
+                nomor += 1
+                nodeTampil = nodeTampil.next
 
     def iterate_item(self):
         current_item = self.tail
@@ -130,11 +159,11 @@ class LinkedDrakor: # class LinkedList
     def printData(self, node):
         print("                     DETAIL DRAKOR")
         print("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈")
-        print(" Judul         : {}".format(node.judul))
-        print(" Episode       : {}".format(node.episode))
-        print(" Genre         : {}".format(node.genre))
-        print(" Tahun         : {}".format(node.tahun))
-        print(" Keterangan    : {}".format(node.keterangan))
+        print(" Judul         : {}".format(node.Judul))
+        print(" Episode       : {}".format(node.Episode))
+        print(" Genre         : {}".format(node.Genre))
+        print(" Tahun         : {}".format(node.Tahun))
+        print(" Keterangan    : {}".format(node.Keterangan))
 
 # SORT
     def sortedMerge(self, a, b):
@@ -192,7 +221,7 @@ class LinkedDrakor: # class LinkedList
         values = []
         current = self.head
         while current is not None: #First loop
-            values.append({"Judul":(current.Judul), "Episode":(current.Episode),"Tahun":(current.Tahun),"Keterangan":(current.Keterangan)})
+            values.append({"Judul":(current.Judul), "Episode":(current.Episode), "Genre":(current.Genre), "Tahun":(current.Tahun), "Keterangan":(current.Keterangan)})
             current = current.next
         return values
 
@@ -201,9 +230,48 @@ def printDict(array,indexDrakor):
     print("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈")
     print(" Judul        : {}".format(array[indexDrakor]["Judul"]))
     print(" Episode      : {}".format(array[indexDrakor]["Episode"]))
+    print(" Genre        : {}".format(array[indexDrakor]["Genre"]))
     print(" Tahun        : {}".format(array[indexDrakor]["Tahun"]))
     print(" Keterangan   : {}".format(array[indexDrakor]["Keterangan"]))
 
+def tambah_drama():
+    judul = input("Masukkan judul drama: ")
+
+    query = "SELECT * FROM drakor WHERE Judul = %s"
+    values = (judul,)
+
+    cursor = mydb.cursor()
+    cursor.execute(query, values)
+
+    drakor = cursor.fetchone()
+    if drakor:
+        sql = "INSERT INTO watchlist (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
+        cursor = mydb.cursor()
+        cursor.execute(sql, drakor)
+        mydb.commit()
+        print("Drama Korea Telah Ditambahkan")
+    else:
+        print("Drama Korea Tidak Tersedia")
+
+def hapus_drama():
+    judul = input("Masukkan judul Drama yang mau dihapus: ")
+
+    mycursor = mydb.cursor()
+    sql = "DELETE FROM watchlist WHERE Judul = %s"
+    values = (judul,)
+    mycursor.execute(sql, values)
+
+    mydb.commit()
+    print("Drama ", judul, "udah dihapus!")
+    # else:
+    #     print("Drama ", judul, " udah dihapus!.")
+
+def tampil_drama():
+    cursor = mydb.cursor()
+    cursor.execute("SELECT * FROM watchlist")
+    result = cursor.fetchall()
+    for data in result:
+        print(data)
 
 # SEARCH
 def jumpSearch( array , namadrakor , n ):
@@ -227,6 +295,13 @@ def jumpSearch( array , namadrakor , n ):
      
     return -1
 
+class menuAdmin:
+    def pilih1(self):
+        LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
+        LinkedDrakor.barang() #printList
+
+LinkedDrakor=LinkedDrakor()
+
 def ulang(): #Opsi Pengulangan
     if True:
         yt=input("Kembali ke Menu? (y/t): ")
@@ -238,69 +313,7 @@ def ulang(): #Opsi Pengulangan
             print("Maaf input tidak benar!")
             ulang()
 
-def show():
-    LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
-    LinkedDrakor.printList()
-
-def add():
-    judul = input("Masukkan judul drama: ")
-    tahun= input("Masukkan tahun rilis: ")
-    episode = input("Masukkan jumlah episode: ")
-    genre = input("Masukkan genre: ")
-    status = input("Masukkan status drama [on going/complete]: ")
-    drama = NodeDrakor (judul, tahun, episode, genre, status)
-    
-    LinkedDrakor.tambah_drama(drama)
-    print("drama udah ditambahin!")
-def rm():
-    LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
-    LinkedDrakor.printList() #printList
-    try:
-        print("—————————————————————————————————————————————————————")
-        hapusDrakor = int(input("Masukkan pilihan: "))
-        index = hapusDrakor - 1
-        key = LinkedDrakor.searchKey(index)
-        if key != None:
-            print()
-            confirm = input("Apakah Anda ingin Menghapus {} (y/t)? ".format(key))
-            print()
-            if confirm.lower() == "y":
-                # sql = "DELETE FROM complete WHERE judul drama korea = %s "
-                # judul = (hapusDrakor)
-                
-                LinkedDrakor.deleteNode(key)
-                print(">>> Data berhasil di hapus <<<")
-            else:
-                print(">>> Penghapusan data dibatalkan <<<")
-    except ValueError :
-                print("—————————————————————————————————————————————————————")
-                print("                Pilihan tidak tersedia               ")      
-
-def update():
-    pilih1 = True
-    LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
-    LinkedDrakor.printList() #printList
-    while pilih1 == True:
-        try:
-            print("")
-            editDrakor = int(input("Masukkan pilihan: "))
-            index = editDrakor - 1
-            dataDrakor = LinkedDrakor.getData(index) #print Data
-            if dataDrakor != False:
-                print("")
-                updateDrakor = input("Ingin Ubah Data? (y/t) -> ")
-                if updateDrakor.lower() == "y":
-                    LinkedDrakor.updateDrakor(index)
-                    pilih1 == False
-                break
-        except ValueError :
-            print("—————————————————————————————————————————————————————")
-            print("               PILIHAN TIDAK TERSEDIA             ")
-            print("—————————————————————————————————————————————————————")
-            ulang()
-        break
-   
- # Fungsi login user
+# Fungsi login user
 def login_user():
     print("Silahkan Registrasi Terlebih Dahulu")  
     while True :
@@ -341,6 +354,7 @@ def login_user():
                     # Jika ditemukan user dengan username dan password yang sesuai
             if user:
                 print("Login berhasil. Selamat Datang di Aplikasi Drama Korea, {}!".format(user[0]))
+                menu_user()
                 break
             else:
                 print('=============Login Ditolak, Silahkan Coba Lagi=============')    
@@ -356,20 +370,22 @@ def login_admin():
     password = pwinput.pwinput("Masukkan password admin: ")
 
             # Query untuk memeriksa keberadaan username dan password di tabel admin
-    query = "SELECT * FROM log WHERE username = %s AND password = %s"
+    query = "SELECT * FROM admin WHERE username = %s AND password = %s"
     values = (username, password)
 
     cursor = mydb.cursor()
     cursor.execute(query, values)
 
-    log = cursor.fetchone()
+    admin = cursor.fetchone()
 
             # Jika ditemukan admin dengan username dan password yang sesuai
-    if log:
-        print("Login berhasil. Selamat datang, {}!".format(log[0]))
+    if admin:
+        print("Login berhasil. Selamat datang, {}!".format(admin[0]))
         menu_admin()
     else:
         print("Login gagal. Silakan coba lagi.")
+
+
 
 # MENU USER
 def menu_user():
@@ -385,13 +401,11 @@ def menu_user():
         try:
             menu = int(input('Masukan pilihan menu: '))
             if menu == 1 :
-                menu_admin()
+                tambah_drama()
             elif menu == 2:
-                menu_user()
+                hapus_drama()
             elif menu == 3:
-                break
-            elif menu == 4:
-                break
+                tampil_drama()
             elif menu == 0:
                 menu_utama()
             else :
@@ -399,12 +413,12 @@ def menu_user():
             
         except:
             print("Masukan Kode Dengan Angka!")
-
+            
 # MENU ADMIN
 def menu_admin():
     while True:
         print("="*50)
-        print("MENU ADMIN")
+        
         print("="*50)
         print("1. Menampilkan Drama Korea")
         print("2. Menambahkan Drama Korea")
@@ -415,21 +429,65 @@ def menu_admin():
         try:
             pilih = int(input('Masukan pilihan menu: '))
             if pilih == 1 :
-                show()
+                LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
+                LinkedDrakor.printList() 
+
             elif pilih == 2:
-                add()
+                break
+            
             elif pilih == 3:
-                rm()
+                LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
+                LinkedDrakor.printList() #printList
+                try:
+                    print("—————————————————————————————————————————————————————")
+                    hapusDrakor = int(input("Masukkan pilihan: "))
+                    index = hapusDrakor - 1
+                    key = LinkedDrakor.searchKey(index)
+                    if key != None:
+                        print()
+                        confirm = input("Apakah Anda ingin Menghapus {} (y/t)? ".format(key))
+                        print()
+                        if confirm.lower() == "y":
+                            LinkedDrakor.deleteNode(key)
+                            print(">>> Data berhasil di hapus <<<")
+                        else:
+                            print(">>> Penghapusan data dibatalkan <<<")
+                except ValueError :
+                            print("—————————————————————————————————————————————————————")
+                            print("                Pilihan tidak tersedia               ")      
+
             elif pilih == 4:
-                update()
+                pilih1 = True
+                LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
+                LinkedDrakor.printList() #printList
+                while pilih1 == True:
+                    try:
+                        print("")
+                        editDrakor = int(input("Masukkan pilihan: "))
+                        index = editDrakor - 1
+                        dataDrakor = LinkedDrakor.getData(index) #print Data
+                        if dataDrakor != False:
+                            print("")
+                            updateDrakor = input("Ingin Ubah Data? (y/t) -> ")
+                            if updateDrakor.lower() == "y":
+                                LinkedDrakor.updateDrakor(index)
+                                pilih1 == False
+                            break
+                    except ValueError :
+                        print("—————————————————————————————————————————————————————")
+                        print("               PILIHAN TIDAK TERSEDIA             ")
+                        print("—————————————————————————————————————————————————————")
+                        ulang()
+                    break
             elif pilih == 0:
                 menu_utama()
-                break
             else :
                 print("Opsi tidak valid")
             
         except:
             print("Masukan Kode Dengan Benar: 1/2/0")
+
+
 
 def menu_utama():
     while True:
@@ -444,23 +502,20 @@ def menu_utama():
             kode = int(input('Masukan pilihan menu: '))
             if kode == 1 :
                 login_admin()
-                break
             elif kode == 2:
                 login_user()
-                menu_user()
-                break
             elif kode == 0:
                 print("======================================================")
                 print("                  SAMPAI JUMPA LAGI                   ")
                 print("======================================================")
-                raise SystemExit
-               
-            else:
+                break
+            else :
                 print("Opsi tidak valid")
             
-        except ValueError:
+        except:
             print("Masukan Kode Dengan Benar: 1/2/0")
 
 
-# LinkedDrakor=LinkedDrakor()
+        
+
 menu_utama()
