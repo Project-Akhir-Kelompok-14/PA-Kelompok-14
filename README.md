@@ -15,8 +15,10 @@ Program Watchlist adalah program yang memungkinkan pengguna untuk mencatat dafta
 - Pwinput: Pwinput digunakan untuk mengamankan password agar tidak terlihat oleh orang lain saat melakukan login. 
 - Os: Os digunakan untuk membersihkan layar terminal, sehingga tampilan menjadi lebih rapi dan mudah dibaca. 
 - MySQL Connector: MySQL Connector digunakan untuk menghubungkan program Python dengan database MySQL. 
-
-
+### Linked List
+---
+### Function
+---
 
 
 ## Fitur dan Fungsionalitas
@@ -34,4 +36,4 @@ Untuk Admin:
 4. Mengubah Drama Korea: Admin dapat mengubah informasi dari judul drama Korea yang telah tersimpan di database, seperti judul, jumlah episode, genre, tahun rilis, dan keterangan (on going atau completed).
 
 ## Cara Penggunaan
-...
+---
