@@ -253,8 +253,6 @@ def tampil_drama():
     result = cursor.fetchall()
     if len(result) == 0:
         print("Tidak ada drama di watchlist saat ini.")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
     else:
         print("===============================================================================================")
         print("                                         WATCHLIST                                             ")
@@ -265,9 +263,14 @@ def tampil_drama():
             print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
         print("===============================================================================================")
 
-def keluar():
+def hapus_user():
     mycursor = mydb.cursor()
-    sql = "DELETE FROM watchlist; DELETE FROM user;"
+    sql = "DELETE FROM user "
+    mycursor.execute(sql)
+    mydb.commit()
+def hapus_watchlist():
+    mycursor = mydb.cursor()
+    sql = "DELETE FROM watchlist"
     mycursor.execute(sql)
     mydb.commit()
     print(mycursor.rowcount, "Anda Telah Keluar Dari Menu User")
@@ -489,8 +492,9 @@ def menu_user():
                 print(input("Tekan Enter Untuk Melanjutkan..."))
                 os.system("cls")
             elif menu == 0:
-                keluar()
-                menu_utama()
+                hapus_user()
+                hapus_watchlist
+                break
             else :
                 print("Opsi tidak valid")
             
