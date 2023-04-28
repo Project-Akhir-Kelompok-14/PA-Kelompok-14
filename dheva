@@ -207,49 +207,44 @@ else:
 ########################### FUNGSI MENU USER ###########################
 def tambah_drama():
     os.system("cls")
+    show_drama()
     judul = input("Masukkan Judul Drama Korea : ")
     query = "SELECT * FROM drakor WHERE Judul = %s"
     values = (judul,)
-    cursor = mydb.cursor()
-    cursor.execute(query, values)
-    drakor = cursor.fetchone()
-    sql = "SELECT * FROM watchlist WHERE Judul = %s"
-    val = (judul)
-    cursor.execute(sql, val)
-    watchlist = cursor.fetchone()
-    if judul in watchlist:
-        print("Drama Korea Telah Tersedia Dalam Watchlist")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
-    elif judul in drakor:
-        sql = "INSERT INTO watchlist (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
-        cursor = mydb.cursor()
-        cursor.execute(sql, drakor)
+    mycursor = mydb.cursor()
+    mycursor.execute(query, values)
+    drakor = mycursor.fetchone()  
+    if drakor:
+        mycursor = mydb.cursor()
+        sql = "SELECT * FROM watchlist WHERE Judul = %s"
+        values = (judul,)
+        mycursor.execute(sql, values)
+        result = mycursor.fetchone()
         mydb.commit()
-        print("Drama Korea Telah Ditambahkan")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
+        if result:
+            print("Drama Korea", judul, "Sudah Tersedia Di Watchlist")
+        else:
+            sql = "INSERT INTO watchlist (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
+            mycursor = mydb.cursor()
+            mycursor.execute(sql, drakor)
+            mydb.commit()
+            print("Drama Korea Telah Ditambahkan")
     else:
         print("Drama Korea Tidak Tersedia")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
 
 def hapus_drama():
     os.system("cls")
+    tampil_drama()
     judul = input("Masukkan judul Drama yang mau dihapus: ")
     mycursor = mydb.cursor()
     sql = "DELETE FROM watchlist WHERE Judul = %s"
     values = (judul,)
     mycursor.execute(sql, values)
-    result = mycursor.fetchall()
-    if result:
+    mydb.commit()
+    if mycursor.rowcount > 0:
         print("Drama Korea", judul, "Sudah Di Hapus!")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
     else:
         print("Drama Korea Tidak Tersedia")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
 
 def tampil_drama():
     os.system("cls")
@@ -262,13 +257,22 @@ def tampil_drama():
         os.system("cls")
     else:
         print("===============================================================================================")
+        print("                                         WATCHLIST                                             ")
+        print("===============================================================================================")
         print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
         print("===============================================================================================")
         for data in result:
             print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
         print("===============================================================================================")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
+
+def keluar():
+    mycursor = mydb.cursor()
+    sql = "DELETE FROM watchlist; DELETE FROM user;"
+    mycursor.execute(sql)
+    mydb.commit()
+    print(mycursor.rowcount, "Anda Telah Keluar Dari Menu User")
+    input("Tekan Enter Untuk Melanjutkan...")
+    os.system("cls")
 
 LinkedDrakor=LinkedDrakor()
 
@@ -288,8 +292,6 @@ def show_drama():
         for data in result:
             print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
         print("===============================================================================================")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
 
 def add_drama():
     # buat cursor
@@ -354,7 +356,7 @@ def delete_drama():
         print("Drama Korea Tidak Tersedia")
         print(input("Tekan Enter Untuk Melanjutkan..."))
         os.system("cls")
-        
+
 def update_drama():
     mycursor = mydb.cursor()
     # Mengambil data yang ingin diubah dari pengguna
@@ -426,8 +428,10 @@ def login_user():
             user = cursor.fetchone()
             # Jika ditemukan user dengan username dan password yang sesuai
             if user:
+                os.system("cls")
                 print("Login berhasil. (＾▽＾) Selamat Datang di Aplikasi Drama Korea, {}! (＾▽＾)".format(user[0]))
-                menu_user()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
                 break
             else:
                 print('=============Login Ditolak, Silahkan Coba Lagi=============')
@@ -474,17 +478,18 @@ def menu_user():
             menu = int(input('Masukan pilihan menu: '))
             if menu == 1 :
                 tambah_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif menu == 2:
                 hapus_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif menu == 3:
                 tampil_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif menu == 0:
-                sql = "DELETE FROM watchlist"
-                query = "DELETE FROM user"
-                cursor = mydb.cursor()
-                cursor.execute(sql, query)
-                mydb.commit()
-              
+                keluar()
                 menu_utama()
             else :
                 print("Opsi tidak valid")
@@ -511,6 +516,8 @@ def menu_admin():
             if pilih == 1 :
                 os.system("cls")
                 show_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif pilih == 2:
                 os.system("cls")
                 add_drama()
@@ -547,6 +554,7 @@ def menu_utama():
                 menu_admin()
             elif kode == 2:
                 login_user()
+                menu_user()
             elif kode == 0:
                 print("======================================================")
                 print("                  SAMPAI JUMPA LAGI                   ")
