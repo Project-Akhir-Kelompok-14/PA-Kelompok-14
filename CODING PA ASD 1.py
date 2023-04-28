@@ -1,7 +1,8 @@
 import pwinput
-import math
 import os
+import math
 import mysql.connector
+
 
 mydb = mysql.connector.connect(
     host="db4free.net",
@@ -9,193 +10,205 @@ mydb = mysql.connector.connect(
     password="sukseskelompok14",
     database="kelompok14pa"    
 )
-#LINKED LIST
-class NodeDrakor:
-    def __init__(self, Judul, Episode, Genre,
-                 Tahun, Keterangan):
-        self.Judul = Judul
-        self.Episode = Episode
-        self.Genre = Genre
-        self.Tahun = Tahun
-        self.Keterangan = Keterangan
+
+########################### LINKED LIST ###########################
+class Node:
+    def __init__(self, data):
+        self.data = data
         self.next = None
 
-class LinkedDrakor:
+class LinkedList:
     def __init__(self):
         self.head = None
-        self.count = 0
 
-    def getData(self, index):
-        if index < 0 or index > self.count - 1:
-            print("           Data tersebut tidak tersedia")
-            return False
+    def add_node(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
         else:
-            nodeTampil = self.head
-            for i in range(index):
-                nodeTampil = nodeTampil.next
-            LinkedDrakor.printData(nodeTampil)
+            current_node = self.head
+            while current_node.next is not None:
+                current_node = current_node.next
+            current_node.next = new_node
 
-    def updateDrakor(self, index):
-        nodeUpdate = self.head
-        for i in range (index):
-            nodeUpdate = nodeUpdate.next
-        updateJudul = input('Judul: ')
-        updateEpisode = input('Episode: ')
-        updateTahun = int(input('Tahun: '))
-        updateKeterangan = input('Keterangan: ')
+    def print_list(self):
+        current_node = self.head
+        while current_node is not None:
+            print(current_node.data)
+            current_node = current_node.next
 
-        nodeUpdate.Judul = updateJudul
-        nodeUpdate.Episode = updateEpisode
-        nodeUpdate.Keterangan = updateKeterangan
-        nodeUpdate.Tahun = updateTahun
-        print()
-        print(">>> Berhasil Memperbarui Data <<<")
+mycursor = mydb.cursor()
+mycursor.execute("SELECT Judul, Episode, Genre, Tahun, Keterangan FROM drakor")
+dramas = mycursor.fetchall()
 
-    def deleteNode(self, key):
-        # Store head node
-        temp = self.head
-        if (temp is not None):
-            if (temp.Judul == key):
-                self.head = temp.next
-                temp = None
-                return
-        while(temp is not None):
-            if temp.Judul == key:
-                break
-            prev = temp
-            temp = temp.next
-            
-        if(temp == None):
-            return
- 
-        prev.next = temp.next
-        temp = None
-    
+linked_list = LinkedList()
+for drama in dramas:
+    data = f"Judul: {drama[0]}\nEpisode: {drama[1]}\nGenre: {str(drama[2])}\nTahun: {str(drama[3])}\nKeterangan: {drama[4]}"
+    linked_list.add_node(data)
 
 
-    def tambah_drama(self, drama):
-        if not self.head: # jika head kosong
-            self.head = drama # drama akan menjadi head
-        else: # jika head tidak kosong
-            current = self.head # current akan menjadi head
-            while current.next: # jika current.next tidak kosong
-                current = current.next # current akan menjadi current.next
-            current.next = drama # drama akan menjadi current.next
+########################### SORTING ###########################
+def merge_sort(cursor, drakor):
+    # Mendapatkan data dari database
+    cursor.execute(f"SELECT Judul FROM {drakor}")
+    data = cursor.fetchall()
 
-    def hapus_drama(self, judul): # parameter judul
-        if not self.head:
-            print("Tidak ada drama.")
-            return
-        if self.head.judul == judul:
-            self.head = self.head.next
-            return
-        current = self.head
-        while current.next:
-            if current.next.judul == judul:
-                current.next = current.next.next
-                return
-            current = current.next
-        print("Judul drama itu udah nggada.")
+    # Mengkonversi data ke dalam list
+    data_list = [item[0] for item in data]
 
-    def tampil_drama(self, halaman = 1, per_halaman = 5):
-        start = (halaman - 1) * per_halaman # start = (halaman - 1) * per_halaman
-        end = start + per_halaman # end = start + per_halaman
-        current = self.head # current akan menjadi head
-        drama_list = [] # drama_list akan menjadi list kosong
-        while current: # jika current tidak kosong
-            drama_list.append(current) # current akan ditambahkan ke drama_list
-            current = current.next # current akan menjadi current.next
-        if start >= len(drama_list): # jika start lebih besar atau sama dengan panjang drama_list
-            return None # mengembalikan nilai None
-        else: # jika start tidak lebih besar atau sama dengan panjang drama_list
-            return drama_list[start:end] # mengembalikan nilai drama_list[start:end]
-    
+    if len(data_list) <= 1:
+        return data_list
 
-    def printData(self, node):
-        print("                     DETAIL DRAKOR")
-        print("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈")
-        print(" Judul         : {}".format(node.Judul))
-        print(" Episode       : {}".format(node.Episode))
-        print(" Genre         : {}".format(node.Genre))
-        print(" Tahun         : {}".format(node.Tahun))
-        print(" Keterangan    : {}".format(node.Keterangan))
+    mid = len(data_list) // 2
+    left = data_list[:mid]
+    right = data_list[mid:]
 
-# SORT
-    def sortedMerge(self, a, b):
-        result = None
-        if a == None:
-            return b
-        if b == None:
-            return a
-        if a.Judul < b.Judul:
-            result = a
-            result.next = self.sortedMerge(a.next, b)
+    # Rekursif untuk melakukan pengurutan pada setiap bagian
+    left = merge_sort(cursor, drakor)
+    right = merge_sort(cursor, drakor)
+
+    # Merge dua bagian yang telah diurutkan
+    return merge(left, right)
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
         else:
-            result = b
-            result.next = self.sortedMerge(a, b.next)
-        return result
-     
-    def mergeSort(self, h):
-        if h == None or h.next == None:
-            return h
-        middle = self.getMiddle(h)
-        nexttomiddle = middle.next
-        middle.next = None
-        left = self.mergeSort(h)
-        right = self.mergeSort(nexttomiddle)
-        sortedlist = self.sortedMerge(left, right)
-        return sortedlist
+            result.append(right[j])
+            j += 1
+    result += left[i:]
+    result += right[j:]
+    return result
 
-    def getMiddle(self, head):
-        if (head == None):
-            return head
- 
-        slow = head
-        fast = head
- 
-        while (fast.next != None and
-               fast.next.next != None):
-            slow = slow.next
-            fast = fast.next.next
-             
-        return slow
 
+def merge_watchlist():
+    cursor = mydb.cursor()
+
+    # Melakukan pengurutan dengan Merge Sort
+    sorted_data = merge_sort(cursor, "watchlist")
+
+    # Update data lama dengan data baru yang sudah diurutkan
+    for i, item in enumerate(sorted_data):
+        cursor.execute(f"UPDATE watchlist SET Judul = '{item}' WHERE id = {i+1}")
+
+    mydb.commit()
+
+    cursor.close()
+    mydb.close()
+    
+########################### SEARCH ###########################
+def jump_search(judul, watchlist):
+    cursor = mydb.cursor()
+    cursor.execute(f"SELECT * FROM {watchlist} ORDER BY Judul")
+    data = cursor.fetchall()
+    
+    n = len(data)
+    step = int(math.sqrt(n))
+    prev = 0
+    
+    while data[min(step, n)-1][1] < judul:
+        prev = step
+        step += int(math.sqrt(n))
+        if prev >= n:
+            return -1
+    
+    while data[prev][1] < judul:
+        prev += 1
+        
+        if prev == min(step, n):
+            return -1
+    
+    if data[prev][1] == judul:
+        return data[prev]
+    
+    return -1
+########################### FUNGSI MENU USER ###########################
 def tambah_drama():
-    judul = input("Masukkan judul drama: ")
-
+    os.system("cls")
+    show_drama()
+    judul = input("Masukkan Judul Drama Korea : ")
     query = "SELECT * FROM drakor WHERE Judul = %s"
     values = (judul,)
-    cursor = mydb.cursor()
-    cursor.execute(query, values)
-    drakor = cursor.fetchone()
+    mycursor = mydb.cursor()
+    mycursor.execute(query, values)
+    drakor = mycursor.fetchone()  
     if drakor:
-        sql = "INSERT INTO watchlist (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
-        cursor = mydb.cursor()
-        cursor.execute(sql, drakor)
+        mycursor = mydb.cursor()
+        sql = "SELECT * FROM watchlist WHERE Judul = %s"
+        values = (judul,)
+        mycursor.execute(sql, values)
+        result = mycursor.fetchone()
         mydb.commit()
-        print("Drama Korea Telah Ditambahkan")
+        if result:
+            print("Drama Korea", judul, "Sudah Tersedia Di Watchlist")
+        else:
+            sql = "INSERT INTO watchlist (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
+            mycursor = mydb.cursor()
+            mycursor.execute(sql, drakor)
+            mydb.commit()
+            print("Drama Korea Telah Ditambahkan")
     else:
         print("Drama Korea Tidak Tersedia")
 
 def hapus_drama():
+    os.system("cls")
+    tampil_drama()
     judul = input("Masukkan judul Drama yang mau dihapus: ")
-
     mycursor = mydb.cursor()
     sql = "DELETE FROM watchlist WHERE Judul = %s"
     values = (judul,)
     mycursor.execute(sql, values)
-
     mydb.commit()
-    print("Drama ", judul, "udah dihapus!")
-    # else:
-    #     print("Drama ", judul, " udah dihapus!.")
+    if mycursor.rowcount > 0:
+        print("Drama Korea", judul, "Sudah Di Hapus!")
+    else:
+        print("Drama Korea Tidak Tersedia")
 
 def tampil_drama():
+    os.system("cls")
     cursor = mydb.cursor()
     cursor.execute("SELECT * FROM watchlist")
     result = cursor.fetchall()
     if len(result) == 0:
         print("Tidak ada drama di watchlist saat ini.")
+    else:
+        print("===============================================================================================")
+        print("                                         WATCHLIST                                             ")
+        print("===============================================================================================")
+        print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
+        print("===============================================================================================")
+        for data in result:
+            print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
+        print("===============================================================================================")
+
+def hapus_user():
+    mycursor = mydb.cursor()
+    sql = "DELETE FROM user "
+    mycursor.execute(sql)
+    mydb.commit()
+def hapus_watchlist():
+    mycursor = mydb.cursor()
+    sql = "DELETE FROM watchlist"
+    mycursor.execute(sql)
+    mydb.commit()
+    print(mycursor.rowcount, "Anda Telah Keluar Dari Menu User")
+    input("Tekan Enter Untuk Melanjutkan...")
+    os.system("cls")
+
+########################### FUNGSI MENU ADMIN ###########################
+def show_drama():
+    cursor = mydb.cursor()
+    cursor.execute("SELECT * FROM drakor")
+    result = cursor.fetchall()
+    if len(result) == 0:
+        print("Tidak ada drama di watchlist saat ini.")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
     else:
         print("===============================================================================================")
         print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
@@ -204,37 +217,109 @@ def tampil_drama():
             print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
         print("===============================================================================================")
 
-# SEARCH
-def jumpSearch( array , namadrakor , n ):
-    x = namadrakor
-    step = math.sqrt(n)
-    prev = 0
-    
-    while array[int(min(step, n)-1)]["Judul"].lower() < x.lower():
-        prev = step
-        step += math.sqrt(n)
-        if prev >= n:
-            return -1
+def add_drama():
+    # buat cursor
+    mycursor = mydb.cursor()
+    # buat fungsi untuk menambah data ke database
+    def tambah_data(judul, episode, genre, tahun, keterangan):
+        # query untuk menambah data
+        sql = "INSERT INTO drakor (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
+        # data yang akan dimasukkan
+        val = (judul, episode, genre, tahun, keterangan)
+        # eksekusi query
+        mycursor.execute(sql, val)
+        # commit perubahan ke database
+        cursor = mydb.cursor()
+        mydb.commit()
+        cursor.execute("SELECT * FROM drakor")
+        result = cursor.fetchall()
+        if judul in result:
+            print("Data Telah Tersedia")
+            print(input("Tekan Enter Untuk Melanjutkan..."))
+            os.system("cls")
+        else:
+            print(mycursor.rowcount, "Data Berhasil Ditambahkan")
+            print(input("Tekan Enter Untuk Melanjutkan..."))
+            os.system("cls")
+    # meminta input dari pengguna
+    judul = input("Masukkan judul: ")
+    episode = input("Masukkan jumlah episode: ")
+    genre = input("Masukkan genre: ")
+    tahun = input("Masukkan tahun: ")
+    keterangan = input("Masukkan keterangan: ")
+    # memanggil fungsi untuk menambah data ke database
+    tambah_data(judul, episode, genre, tahun, keterangan)
 
-    while array[int(prev)]["Judul"].lower() < x.lower():
-        prev += 1
-        if prev == min(step, n):
-            return -1
+def delete_drama():
+    mycursor = mydb.cursor()
+    # Menampilkan data
+    mycursor.execute("SELECT * FROM drakor")
+    result = mycursor.fetchall()
+    print("===============================================================================================")
+    print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
+    print("===============================================================================================")
+    for data in result:
+        print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
+    print("===============================================================================================")
 
-    if array[int(prev)]["Judul"].lower() == x.lower(): 
-        return prev
-     
-    return -1
+    # Meminta input id yang akan dihapus
+    hapus_judul = input("Masukkan judul yang akan dihapus: ")
+    # Query untuk menghapus data berdasarkan id
+    sql = "DELETE FROM drakor WHERE Judul = %s"
+    val = (hapus_judul, )
+    # Menjalankan query
+    cursor = mydb.cursor()
+    mycursor.execute(sql, val)
+    cursor.execute("SELECT * FROM drakor")
+    result = cursor.fetchall()
+    # Melakukan commit untuk menyimpan perubahan
+    mydb.commit()
+    if hapus_judul in result:
+        print(mycursor.rowcount, "Data Berhasil Di Hapus")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+    else:
+        print("Drama Korea Tidak Tersedia")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
 
-class menuAdmin:
-    def pilih1(self):
-        LinkedDrakor.head = LinkedDrakor.mergeSort(LinkedDrakor.head) #MergeSort
-        LinkedDrakor.barang()
+def update_drama():
+    mycursor = mydb.cursor()
+    # Mengambil data yang ingin diubah dari pengguna
+    judul_lama = input("Masukkan judul drakor yang ingin diubah: ")
+    tahun_lama = input("Masukkan tahun rilis drakor yang ingin diubah: ")
+    # Menampilkan data yang ingin diubah kepada pengguna
+    sql_select = "SELECT * FROM drakor WHERE Judul = %s AND Tahun = %s"
+    val_select = (judul_lama, tahun_lama)
+    mycursor.execute(sql_select, val_select)
+    result = mycursor.fetchone()
+    if result == None:
+        print("Data yang ingin diubah tidak ditemukan.")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+    else:
+        print("Data yang ingin diubah adalah: ")
+        print(result)
 
-LinkedDrakor=LinkedDrakor()
+        # Mengambil data baru dari pengguna
+        judul_baru = input("Masukkan judul baru: ")
+        episode_baru = input("Masukkan jumlah episode baru: ")
+        genre_baru = input("Masukkan genre baru: ")
+        tahun_baru = input("Masukkan tahun rilis baru: ")
+        keterangan_baru = input("Masukkan keterangan baru: ")
 
+        # Memperbarui data di database
+        sql_update = "UPDATE drakor SET Judul = %s, Episode = %s, Genre = %s, Tahun = %s, Keterangan = %s WHERE Judul = %s AND Tahun = %s"
+        val_update = (judul_baru, episode_baru, genre_baru, tahun_baru, keterangan_baru, judul_lama, tahun_lama)
+        mycursor.execute(sql_update, val_update)
+        mydb.commit()
+        print("Data telah berhasil diubah.")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+        
 # Fungsi login user
 def login_user():
+    os.system("cls")
     print("Silahkan Registrasi Terlebih Dahulu")  
     while True :
         try:
@@ -261,30 +346,30 @@ def login_user():
             print("------------------Silahkan Login-------------------")
             username = input("Masukkan username: ")
             password = pwinput.pwinput("Masukkan password: ")
-
-                    # Query untuk memeriksa keberadaan username dan password di tabel user
+            # Query untuk memeriksa keberadaan username dan password di tabel user
             query = "SELECT * FROM user WHERE username = %s AND password = %s"
             values = (username, password)
-
             cursor = mydb.cursor()
             cursor.execute(query, values)
-
             user = cursor.fetchone()
-
-                    # Jika ditemukan user dengan username dan password yang sesuai
+            # Jika ditemukan user dengan username dan password yang sesuai
             if user:
-                print("Login berhasil. Selamat Datang di Aplikasi Drama Korea, {}!".format(user[0]))
-                menu_user()
+                os.system("cls")
+                print("Login berhasil. (＾▽＾) Selamat Datang di Aplikasi Drama Korea, {}! (＾▽＾)".format(user[0]))
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
                 break
             else:
-                print('=============Login Ditolak, Silahkan Coba Lagi=============')    
+                print('=============Login Ditolak, Silahkan Coba Lagi=============')
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
         except ValueError:
             print("============Silahkan Masukan Data Dengan Benar=============")
     
-        # Fungsi login admin
+# Fungsi login admin
 def login_admin():
     os.system("cls")
-    print("SILAHKAN LOGIN ADMIN     ")
+    print("SILAHKAN LOGIN ADMIN")
     print("=" * 50)
     username = input("Username: ")
     password = pwinput.pwinput("Password: ")
@@ -295,10 +380,14 @@ def login_admin():
     cursor.execute(query, values)
     admin = cursor.fetchone()
     if admin:
-        print("Login berhasil. Selamat datang, {}!".format(admin[0]))
-        menu_admin()
+        print("Login berhasil. (｡◕‿◕｡) SELAMAT DATANG, {}! (｡◕‿◕｡)".format(admin[0]))
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+        
     else:
         print("Login gagal. Silakan coba lagi.")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
 
 # MENU USER
 def menu_user():
@@ -315,12 +404,20 @@ def menu_user():
             menu = int(input('Masukan pilihan menu: '))
             if menu == 1 :
                 tambah_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif menu == 2:
                 hapus_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif menu == 3:
                 tampil_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif menu == 0:
-                menu_utama()
+                hapus_user()
+                hapus_watchlist
+                break
             else :
                 print("Opsi tidak valid")
             
@@ -344,118 +441,27 @@ def menu_admin():
         try:
             pilih = int(input('Masukan pilihan menu: '))
             if pilih == 1 :
-                cursor = mydb.cursor()
-                cursor.execute("SELECT * FROM drakor")
-                result = cursor.fetchall()
-                if len(result) == 0:
-                    print("Tidak ada drama di watchlist saat ini.")
-                else:
-                    print("===============================================================================================")
-                    print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
-                    print("===============================================================================================")
-                    for data in result:
-                        print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
-                    print("===============================================================================================")
-
+                os.system("cls")
+                show_drama()
+                print(input("Tekan Enter Untuk Melanjutkan..."))
+                os.system("cls")
             elif pilih == 2:
-                # buat cursor
-                mycursor = mydb.cursor()
-
-                # buat fungsi untuk menambah data ke database
-                def tambah_data(judul, episode, genre, tahun, keterangan):
-                    # query untuk menambah data
-                    sql = "INSERT INTO drakor (Judul, Episode, Genre, Tahun, Keterangan) VALUES (%s, %s, %s, %s, %s)"
-                    # data yang akan dimasukkan
-                    val = (judul, episode, genre, tahun, keterangan)
-
-                    # eksekusi query
-                    mycursor.execute(sql, val)
-
-                    # commit perubahan ke database
-                    mydb.commit()
-
-                    print(mycursor.rowcount, "data berhasil ditambahkan")
-
-                # meminta input dari pengguna
-                judul = input("Masukkan judul: ")
-                episode = input("Masukkan jumlah episode: ")
-                genre = input("Masukkan genre: ")
-                tahun = input("Masukkan tahun: ")
-                keterangan = input("Masukkan keterangan: ")
-
-                # memanggil fungsi untuk menambah data ke database
-                tambah_data(judul, episode, genre, tahun, keterangan)
-            
+                os.system("cls")
+                add_drama()
             elif pilih == 3:
-                mycursor = mydb.cursor()
-
-                # Menampilkan data
-                mycursor.execute("SELECT * FROM drakor")
-                result = mycursor.fetchall()
-                print("===============================================================================================")
-                print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
-                print("===============================================================================================")
-                for data in result:
-                    print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
-                print("===============================================================================================")
-
-                # Meminta input id yang akan dihapus
-                hapus_judul = input("Masukkan judul yang akan dihapus: ")
-
-                # Query untuk menghapus data berdasarkan id
-                sql = "DELETE FROM drakor WHERE Judul = %s"
-                val = (hapus_judul, )
-
-                # Menjalankan query
-                mycursor.execute(sql, val)
-
-                # Melakukan commit untuk menyimpan perubahan
-                mydb.commit()
-
-                print(mycursor.rowcount, "data berhasil dihapus")
-
-
+                os.system("cls")
+                delete_drama()
             elif pilih == 4:
-                mycursor = mydb.cursor()
-
-                # Mengambil data yang ingin diubah dari pengguna
-                judul_lama = input("Masukkan judul drakor yang ingin diubah: ")
-                tahun_lama = input("Masukkan tahun rilis drakor yang ingin diubah: ")
-
-                # Menampilkan data yang ingin diubah kepada pengguna
-                sql_select = "SELECT * FROM drakor WHERE Judul = %s AND Tahun = %s"
-                val_select = (judul_lama, tahun_lama)
-                mycursor.execute(sql_select, val_select)
-                result = mycursor.fetchone()
-                if result == None:
-                    print("Data yang ingin diubah tidak ditemukan.")
-                else:
-                    print("Data yang ingin diubah adalah: ")
-                    print(result)
-
-                    # Mengambil data baru dari pengguna
-                    judul_baru = input("Masukkan judul baru: ")
-                    episode_baru = input("Masukkan jumlah episode baru: ")
-                    genre_baru = input("Masukkan genre baru: ")
-                    tahun_baru = input("Masukkan tahun rilis baru: ")
-                    keterangan_baru = input("Masukkan keterangan baru: ")
-
-                    # Memperbarui data di database
-                    sql_update = "UPDATE drakor SET Judul = %s, Episode = %s, Genre = %s, Tahun = %s, Keterangan = %s WHERE Judul = %s AND Tahun = %s"
-                    val_update = (judul_baru, episode_baru, genre_baru, tahun_baru, keterangan_baru, judul_lama, tahun_lama)
-                    mycursor.execute(sql_update, val_update)
-                    mydb.commit()
-                    print("Data telah berhasil diubah.")
-
+                os.system("cls")
+                update_drama()
             elif pilih == 0:
+                os.system("cls")
                 menu_utama()
             else :
                 print("Opsi tidak valid")
             
         except:
             print("Masukan Kode Dengan Benar: 1/2/0")
-
-
 
 def menu_utama():
     while True:
@@ -470,8 +476,10 @@ def menu_utama():
             kode = int(input('Masukan pilihan menu: '))
             if kode == 1 :
                 login_admin()
+                menu_admin()
             elif kode == 2:
                 login_user()
+                menu_user()
             elif kode == 0:
                 print("======================================================")
                 print("                  SAMPAI JUMPA LAGI                   ")
