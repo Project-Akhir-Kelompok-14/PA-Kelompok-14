@@ -192,7 +192,7 @@ def jump_search(arr, x):
 
 # Ambil data dari database ke dalam daftar Python
 cursor = mydb.cursor()
-query = ("SELECT Judul FROM drakor ORDER BY Judul")
+query = ("SELECT * FROM drakor ORDER BY Judul")
 cursor.execute(query)
 result = cursor.fetchall()
 data = [row[1] for row in result]
@@ -204,11 +204,9 @@ if index == -1:
 else:
     print("Target value found at index", index)
 
-# Close the database connection
-mydb.close()
-
 ########################### FUNGSI MENU USER ###########################
 def tambah_drama():
+    os.system("cls")
     judul = input("Masukkan Judul Drama Korea : ")
     query = "SELECT * FROM drakor WHERE Judul = %s"
     values = (judul,)
@@ -237,20 +235,24 @@ def tambah_drama():
         os.system("cls")
 
 def hapus_drama():
+    os.system("cls")
     judul = input("Masukkan judul Drama yang mau dihapus: ")
     mycursor = mydb.cursor()
     sql = "DELETE FROM watchlist WHERE Judul = %s"
     values = (judul,)
     mycursor.execute(sql, values)
-
-    mydb.commit()
-    print("Drama ", judul, "udah dihapus!")
-    print(input("Tekan Enter Untuk Melanjutkan..."))
-    os.system("cls")
-    # else:
-    #     print("Drama ", judul, " udah dihapus!.")
+    result = mycursor.fetchall()
+    if result:
+        print("Drama Korea", judul, "Sudah Di Hapus!")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+    else:
+        print("Drama Korea Tidak Tersedia")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
 
 def tampil_drama():
+    os.system("cls")
     cursor = mydb.cursor()
     cursor.execute("SELECT * FROM watchlist")
     result = cursor.fetchall()
@@ -270,6 +272,7 @@ def tampil_drama():
 
 LinkedDrakor=LinkedDrakor()
 
+########################### FUNGSI MENU ADMIN ###########################
 def show_drama():
     cursor = mydb.cursor()
     cursor.execute("SELECT * FROM drakor")
@@ -301,9 +304,16 @@ def add_drama():
         mycursor.execute(sql, val)
         # commit perubahan ke database
         mydb.commit()
-        print(mycursor.rowcount, "data berhasil ditambahkan")
-        print(input("Tekan Enter Untuk Melanjutkan..."))
-        os.system("cls")
+        cursor.execute("SELECT * FROM drakor")
+        result = cursor.fetchall()
+        if judul in result:
+            print("Data Telah Tersedia")
+            print(input("Tekan Enter Untuk Melanjutkan..."))
+            os.system("cls")
+        else:
+            print(mycursor.rowcount, "Data Berhasil Ditambahkan")
+            print(input("Tekan Enter Untuk Melanjutkan..."))
+            os.system("cls")
     # meminta input dari pengguna
     judul = input("Masukkan judul: ")
     episode = input("Masukkan jumlah episode: ")
@@ -332,12 +342,19 @@ def delete_drama():
     val = (hapus_judul, )
     # Menjalankan query
     mycursor.execute(sql, val)
+    cursor.execute("SELECT * FROM drakor")
+    result = cursor.fetchall()
     # Melakukan commit untuk menyimpan perubahan
     mydb.commit()
-    print(mycursor.rowcount, "data berhasil dihapus")
-    print(input("Tekan Enter Untuk Melanjutkan..."))
-    os.system("cls")
-
+    if hapus_judul in result:
+        print(mycursor.rowcount, "Data Berhasil Di Hapus")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+    else:
+        print("Drama Korea Tidak Tersedia")
+        print(input("Tekan Enter Untuk Melanjutkan..."))
+        os.system("cls")
+        
 def update_drama():
     mycursor = mydb.cursor()
     # Mengambil data yang ingin diubah dari pengguna
@@ -374,6 +391,7 @@ def update_drama():
         
 # Fungsi login user
 def login_user():
+    os.system("cls")
     print("Silahkan Registrasi Terlebih Dahulu")  
     while True :
         try:
@@ -400,19 +418,15 @@ def login_user():
             print("------------------Silahkan Login-------------------")
             username = input("Masukkan username: ")
             password = pwinput.pwinput("Masukkan password: ")
-
-                    # Query untuk memeriksa keberadaan username dan password di tabel user
+            # Query untuk memeriksa keberadaan username dan password di tabel user
             query = "SELECT * FROM user WHERE username = %s AND password = %s"
             values = (username, password)
-
             cursor = mydb.cursor()
             cursor.execute(query, values)
-
             user = cursor.fetchone()
-
-                    # Jika ditemukan user dengan username dan password yang sesuai
+            # Jika ditemukan user dengan username dan password yang sesuai
             if user:
-                print("Login berhasil. Selamat Datang di Aplikasi Drama Korea, {}!".format(user[0]))
+                print("Login berhasil. (＾▽＾) Selamat Datang di Aplikasi Drama Korea, {}! (＾▽＾)".format(user[0]))
                 menu_user()
                 break
             else:
@@ -425,7 +439,7 @@ def login_user():
 # Fungsi login admin
 def login_admin():
     os.system("cls")
-    print("SILAHKAN LOGIN ADMIN     ")
+    print("SILAHKAN LOGIN ADMIN")
     print("=" * 50)
     username = input("Username: ")
     password = pwinput.pwinput("Password: ")
@@ -436,10 +450,10 @@ def login_admin():
     cursor.execute(query, values)
     admin = cursor.fetchone()
     if admin:
-        print("Login berhasil. Selamat datang, {}!".format(admin[0]))
+        print("Login berhasil. (｡◕‿◕｡) SELAMAT DATANG, {}! (｡◕‿◕｡)".format(admin[0]))
         print(input("Tekan Enter Untuk Melanjutkan..."))
         os.system("cls")
-        menu_admin()
+        
     else:
         print("Login gagal. Silakan coba lagi.")
         print(input("Tekan Enter Untuk Melanjutkan..."))
@@ -465,6 +479,12 @@ def menu_user():
             elif menu == 3:
                 tampil_drama()
             elif menu == 0:
+                sql = "DELETE FROM watchlist"
+                query = "DELETE FROM user"
+                cursor = mydb.cursor()
+                cursor.execute(sql, query)
+                mydb.commit()
+              
                 menu_utama()
             else :
                 print("Opsi tidak valid")
@@ -489,14 +509,19 @@ def menu_admin():
         try:
             pilih = int(input('Masukan pilihan menu: '))
             if pilih == 1 :
+                os.system("cls")
                 show_drama()
             elif pilih == 2:
+                os.system("cls")
                 add_drama()
             elif pilih == 3:
+                os.system("cls")
                 delete_drama()
             elif pilih == 4:
+                os.system("cls")
                 update_drama()
             elif pilih == 0:
+                os.system("cls")
                 menu_utama()
             else :
                 print("Opsi tidak valid")
@@ -519,6 +544,7 @@ def menu_utama():
             kode = int(input('Masukan pilihan menu: '))
             if kode == 1 :
                 login_admin()
+                menu_admin()
             elif kode == 2:
                 login_user()
             elif kode == 0:
