@@ -1,5 +1,6 @@
 import pwinput
 import os
+import math
 import mysql.connector
 from prettytable import PrettyTable
 
@@ -122,15 +123,28 @@ class LinkedDrakor:
         print(" Keterangan    : {}".format(node.Keterangan))
 
 ########################### SORTING ###########################
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left = arr[:mid]
-    right = arr[mid:]
-    left = merge_sort(left)
-    right = merge_sort(right)
+def merge_sort(cursor, watchlist):
+    # Mendapatkan data dari database
+    cursor.execute(f"SELECT Judul FROM {watchlist}")
+    data = cursor.fetchall()
+
+    # Mengkonversi data ke dalam list
+    data_list = [item[0] for item in data]
+
+    if len(data_list) <= 1:
+        return data_list
+
+    mid = len(data_list) // 2
+    left = data_list[:mid]
+    right = data_list[mid:]
+
+    # Rekursif untuk melakukan pengurutan pada setiap bagian
+    left = merge_sort(cursor, watchlist)
+    right = merge_sort(cursor, watchlist)
+
+    # Merge dua bagian yang telah diurutkan
     return merge(left, right)
+
 
 def merge(left, right):
     result = []
@@ -146,64 +160,43 @@ def merge(left, right):
     result += right[j:]
     return result
 
-def merge_drakor():
-    # Mendapatkan data dari database
-    cursor = mydb.cursor()
-    cursor.execute("SELECT Judul FROM drakor")
-    data = cursor.fetchall()
 
-    # Mengkonversi data ke dalam list
-    data_list = [item[0] for item in data]
-
-    # Melakukan pengurutan dengan Merge Sort
-    sorted_data = merge_sort(data_list)
-    print(sorted_data)
-    
 def merge_watchlist():
-    # Mendapatkan data dari database
     cursor = mydb.cursor()
-    cursor.execute("SELECT Judul FROM watchlist")
-    data = cursor.fetchall()
-
-    # Mengkonversi data ke dalam list
-    data_list = [item[0] for item in data]
-
     # Melakukan pengurutan dengan Merge Sort
-    sorted_data = merge_sort(data_list)
-    print(sorted_data)
+    sorted_data = merge_sort(cursor, "watchlist")
 
+    # Insert data baru yang sudah diurutkan
+    for item in sorted_data:
+        cursor.execute("UPDATE watchlist SET Judul = %s WHERE Judul = %s", (item, item))
+    mydb.commit()
+    
 ########################### SEARCH ###########################
-def jump_search(arr, x):
-    n = len(arr)
-    step = int(n**0.5)
+def jump_search(judul, watchlist):
+    cursor = mydb.cursor()
+    cursor.execute(f"SELECT * FROM {watchlist} ORDER BY Judul")
+    data = cursor.fetchall()
+    
+    n = len(data)
+    step = int(math.sqrt(n))
     prev = 0
-    while arr[min(step, n)-1] < x:
+    
+    while data[min(step, n)-1][1] < judul:
         prev = step
-        step += int(n**0.5)
+        step += int(math.sqrt(n))
         if prev >= n:
             return -1
-    while arr[prev] < x:
+    
+    while data[prev][1] < judul:
         prev += 1
+        
         if prev == min(step, n):
             return -1
-    if arr[prev] == x:
-        return prev
+    
+    if data[prev][1] == judul:
+        return data[prev]
+    
     return -1
-
-# Ambil data dari database ke dalam daftar Python
-cursor = mydb.cursor()
-query = ("SELECT * FROM drakor ORDER BY Judul")
-cursor.execute(query)
-result = cursor.fetchall()
-data = [row[1] for row in result]
-
-# Melakukan pencarian lompat pada daftar data
-index = jump_search(data, "target_value")
-if index == -1:
-    print("Target value not found in the list")
-else:
-    print("Target value found at index", index)
-
 ########################### FUNGSI MENU USER ###########################
 def tambah_drama():
     os.system("cls")
@@ -308,6 +301,7 @@ def add_drama():
         # eksekusi query
         mycursor.execute(sql, val)
         # commit perubahan ke database
+        cursor = mydb.cursor()
         mydb.commit()
         cursor.execute("SELECT * FROM drakor")
         result = cursor.fetchall()
@@ -346,6 +340,7 @@ def delete_drama():
     sql = "DELETE FROM drakor WHERE Judul = %s"
     val = (hapus_judul, )
     # Menjalankan query
+    cursor = mydb.cursor()
     mycursor.execute(sql, val)
     cursor.execute("SELECT * FROM drakor")
     result = cursor.fetchall()
@@ -539,8 +534,6 @@ def menu_admin():
             
         except:
             print("Masukan Kode Dengan Benar: 1/2/0")
-
-
 
 def menu_utama():
     while True:
