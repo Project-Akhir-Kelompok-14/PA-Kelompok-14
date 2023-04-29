@@ -22,7 +22,7 @@ di dalam Linked List memiliki
 - Head : Elemen yang berada pada posisi pertama 
 - Tail : Elemen yang berada pada posisi terakhir 
 
-Oprasi yang kami gunakan dalam Linked List adalah "add" yang berfungsi untuk menambahkan data
+Operasi yang kami gunakan dalam Linked List adalah "add" yang berfungsi untuk menambahkan data
 
 Kami menggunakan Singly Linked List yang hanya memiliki satu variabel pointer untuk menyimpan banyak data
 
@@ -48,6 +48,7 @@ Untuk Admin:
 2. Menghapus Drama Korea: Admin dapat menghapus drama Korea dari database jika dianggap tidak relevan.
 3. Menambahkan Drama Korea: Admin dapat menambahkan judul drama Korea baru ke dalam database dengan memasukkan informasi seperti judul, jumlah episode, genre, tahun rilis, dan keterangan (on going atau completed).
 4. Mengubah Drama Korea: Admin dapat mengubah informasi dari judul drama Korea yang telah tersimpan di database, seperti judul, jumlah episode, genre, tahun rilis, dan keterangan (on going atau completed).
+5. Mencari Drama Korea: Admin dapat melakukan pencarian drama korea yang tersimpan di database, dengan memasukkan informasi judul drama yang diinginkan.
 
 ## Cara Penggunaan
 ---
