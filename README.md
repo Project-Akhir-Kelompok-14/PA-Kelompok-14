@@ -15,24 +15,38 @@ Program Watchlist adalah program yang memungkinkan pengguna untuk mencatat dafta
 - Pwinput: Pwinput digunakan untuk mengamankan password agar tidak terlihat oleh orang lain saat melakukan login. 
 - Os: Os digunakan untuk membersihkan layar terminal, sehingga tampilan menjadi lebih rapi dan mudah dibaca. 
 - MySQL Connector: MySQL Connector digunakan untuk menghubungkan program Python dengan database MySQL. 
-### Linked List
-Link List adalah struktur data yang terdiri dari urutan record data dimana setiapbrecord memilikifield yang menyimpan alamat/referensi dari record selanjutnya (dalam urutan).Elemen data yang dihubungkan dengan link pada linked list disebut Node.
+- Math: Math digunakan untuk melakukan operasi matematika di dalam program Python.
 
-di dalam Linked List memiliki 
+### Linked List
+Linked List adalah struktur data yang terdiri dari urutan record data dimana setiap record memiliki field yang menyimpan alamat/referensi dari record selanjutnya (dalam urutan). Elemen data yang dihubungkan dengan link pada linked list disebut Node.
+Di dalam Linked List memiliki:
 - Head : Elemen yang berada pada posisi pertama 
 - Tail : Elemen yang berada pada posisi terakhir 
 
-Operasi yang kami gunakan dalam Linked List adalah "add" yang berfungsi untuk menambahkan data
+Operasi yang kami gunakan dalam Linked List adalah "add" yang berfungsi untuk menambahkan data dan digunakan untuk menyimpan data dari tabel drakor dalam database. Kami menggunakan Singly Linked List yang hanya memiliki satu variabel pointer untuk menyimpan banyak data. 
 
-Kami menggunakan Singly Linked List yang hanya memiliki satu variabel pointer untuk menyimpan banyak data
-
----
 ### Function
 
-Kami menggunakan Fungsi Def dalam program yang kami buat 
-Fungsi adalah kumpulan perintah atau baris kode yang dikelompokkan menjadi satu kesatuan untuk kemudian bisa dipanggil atau digunakan berkali-kali 
-
----
+Kami menggunakan Fungsi Def dalam program yang kami buat. Fungsi adalah kumpulan perintah atau baris kode yang dikelompokkan menjadi satu kesatuan untuk kemudian bisa dipanggil atau digunakan berkali-kali.
+Berikut adalah function-function yang kami buat:
+- def merge sort: untuk mengurutkan list data list dengan algoritma Merge Sort.
+- def merge: untuk menggabungkan dua list yang terurut, yaitu list left dan right.
+- def jump search: untuk mencari data dalam sebuah list yang terurut.
+- def tambah drama: untuk menambahkan drama ke dalam watchlist.
+- def hapus drama: untuk menghapus drama dari database watchlist.
+- def tampil drama: untuk menampilkan data drama.
+- def hapus user: untuk menghapus semua data dari tabel user di database.
+- def hapus watchlist: untuk menghapus semua data dari tabel watchlist di dalam database. 
+- def show drama: untuk menampilkan daftar drama Korea yang tersedia dalam database, termasuk judul, episode, genre, tahun, dan keterangan dari masing-masing drama. 
+- def add drama: untuk menambah data drama baru ke dalam database. 
+- def delete drama: untuk menghapus data drama Korea dari database berdasarkan judul yang dimasukkan oleh pengguna.
+- def cari drakor: untuk mencari data drama korea berdasarkan judul yang diinputkan oleh pengguna.
+- def update drama: untuk mengubah data drama Korea dalam database. 
+- def login user: untuk melakukan proses login pengguna ke dalam program Drama Korea. 
+- def login admin: untuk melakukan proses login bagi admin pada program Drama Korea.
+- def menu user:untuk menampilkan menu-menu yang dapat dilakukan oleh pengguna dalam program Drama Korea.
+- def menu admin:untuk menampilkan menu-menu yang dapat dilakukan oleh admin dalam program Drama Korea.
+- def menu utama: untuk menampilkan pilihan untuk login sebagai admin atau user dan keluar dari program. 
 
 
 ## Fitur dan Fungsionalitas
