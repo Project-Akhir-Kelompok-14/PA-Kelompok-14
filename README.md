@@ -97,6 +97,7 @@ drama korea yang ditampilkan juga lengkap dengan Judul, Episode, Genre, Tahun da
 
 
 2. Menambah Drama Korea
+
 ![image](https://user-images.githubusercontent.com/122278611/235305848-b24e9047-16f5-4f7c-8072-9d1d423cd72f.png)
 
 Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan keterangan. setelah itu data akan dimasukan dalam data
