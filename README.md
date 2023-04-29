@@ -99,7 +99,7 @@ Admin dapat menampilkan, Menambah, Menghapus, Mengubah, serta mencari Drama. Adm
 
 1. Menampilkan Drama Korea 
 
-![image](https://user-images.githubusercontent.com/122278611/235304897-013c386b-18aa-42ca-803c-6fe86fb33916.png)
+![image](https://user-images.githubusercontent.com/122278611/235310668-bbc5b333-d9a8-43fe-b528-a0c15c3c38dc.png)
 
 Menu ini akan menampilkan semua list drama korea yang ada, urut per abjad
 drama korea yang ditampilkan juga lengkap dengan Judul, Episode, Genre, Tahun dan Keterangan apakah drama tersebut telah selesai(completed) atau sedang berjalan(on going)
