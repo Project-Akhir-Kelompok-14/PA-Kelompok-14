@@ -77,12 +77,13 @@ setelah login berhasil dapat melanjutkan ke langkah selanjutnya dengan menekan e
 ![image](https://user-images.githubusercontent.com/122278611/235304674-e51fb310-a903-44c2-a15b-e114df56f5d8.png)
 
 
-Login User 
+Login User :
+Pengguna akan diminta untuk registrasi terlebih dahulu dengan memasukkan username dan password. Setelah data dikonfirmasi atau data masuk pada database, pengguna akan diminta melakukan login sesuai dengan username dan password yang telah dibuat sebelumnya. Setelah login berhasil, pengguna akan diminta untuk menekan tombol enter untuk melanjutkan ke menu selanjutnya.
 
-Membuat username dan password 
+Registrasi 
 ![image](https://user-images.githubusercontent.com/122278611/235309739-2345b5af-4ee8-4c7e-b4b2-647ee93c101f.png)
 
-login
+Login
 ![image](https://user-images.githubusercontent.com/122278611/235309825-3e5b38a5-cefc-4605-8af6-59dda550085d.png)
 ![image](https://user-images.githubusercontent.com/122278611/235309912-4d31ff9b-13a2-4284-ac3f-c06abb495463.png)
 
