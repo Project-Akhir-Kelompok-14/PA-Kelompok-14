@@ -75,20 +75,29 @@ Didalam login admin akan diminta untuk memasukan username dan password admin
 ![image](https://user-images.githubusercontent.com/122278611/235304674-e51fb310-a903-44c2-a15b-e114df56f5d8.png)
 setelah login berhasil dapat melanjutkan ke langkah selanjutnya dengan menekan enter 
 
+
+
 Menu Admin : 
 Setelah menekan enter pada login admin, maka akan ditampilkan menu admin 
 ![image](https://user-images.githubusercontent.com/122278611/235304806-555a9a4c-c443-437f-881e-5740b65894f7.png)
 Admin dapat menampilkan, Menambah, Menghapus, Mengubah, serta mencari Drama. Admin juga dapat keluar dari menu admin dan kembali pada menu awal yaitu menu login 
+
+
+
 
 1. Menampilkan Drama Korea 
 ![image](https://user-images.githubusercontent.com/122278611/235304897-013c386b-18aa-42ca-803c-6fe86fb33916.png)
 menu ini akan menampilkan semua list drama korea yang ada, urut per abjad
 drama korea yang ditampilkan juga lengkap dengan Judul, Episode, Genre, Tahun dan Keterangan apakah drama tersebut telah selesai(completed) atau sedang berjalan(on going)
 
+
+
 2. Menambah Drama Korea
 ![image](https://user-images.githubusercontent.com/122278611/235305848-b24e9047-16f5-4f7c-8072-9d1d423cd72f.png)
 Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan keterangan. setelah itu data akan dimasukan dalam data 
 ![image](https://user-images.githubusercontent.com/122278611/235305935-510282db-708b-4170-ae18-6b63608f840f.png)
+
+
 
 3. Menghapus Drama Korea 
 dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.
