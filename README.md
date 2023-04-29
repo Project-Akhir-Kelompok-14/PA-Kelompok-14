@@ -6,11 +6,11 @@
 
 
 ## Deskripsi Program
-Program Watchlist adalah program yang memungkinkan pengguna untuk mencatat daftar film atau acara yang ingin mereka tonton. Dalam kasus Watchlist Drama Korea, program ini difokuskan pada daftar drama Korea yang ingin ditonton. Program ini memudahkan pengguna untuk menambah, menghapus, dan memperbarui daftar drama Korea yang ingin mereka tonton. Program Watchlist Drama Korea ini menggunakan struktur data linked list dan database MySQL untuk menyimpan data pengguna dan drama Korea. Dengan program ini, pengguna dapat dengan mudah mengelola daftar drama Korea yang ingin mereka tonton.
+Program Watchlist adalah program yang memungkinkan pengguna untuk mencatat daftar drama, film atau acara yang ingin mereka tonton. Dalam kasus Watchlist Drama Korea, program ini difokuskan pada daftar drama Korea yang ingin ditonton. Program ini memudahkan pengguna untuk menambah, menghapus, dan memperbarui daftar drama Korea yang ingin mereka tonton. Program Watchlist Drama Korea ini menggunakan struktur data linked list dan database MySQL untuk menyimpan data pengguna dan data drama Korea yang dipilih oleh pengguna. Dengan program ini, pengguna dapat dengan mudah mengelola daftar drama Korea yang ingin mereka tonton. Program ini juga memiliki beberapa fungsi yang hanya bisa diakses oleh admin, sehingga pengguna atau user tidak dapat mengubah data asli pada program ini.
 
 ## Struktur Project
 ### Database
-- MySQL: MySQL digunakan untuk menyimpan dan mengelola data pengguna, admin dan data drama Korea yang ingin ditonton oleh pengguna. 
+- MySQL: MySQL digunakan untuk menyimpan dan mengelola data pengguna, admin, data drama korea yang tersedia dan data drama Korea yang ingin ditonton oleh pengguna. 
 ### Modul
 - Pwinput: Pwinput digunakan untuk mengamankan password agar tidak terlihat oleh orang lain saat melakukan login. 
 - Os: Os digunakan untuk membersihkan layar terminal, sehingga tampilan menjadi lebih rapi dan mudah dibaca. 
