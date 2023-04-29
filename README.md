@@ -66,18 +66,17 @@ Untuk Admin:
 
 ## Cara Penggunaan
 
-Tampilan awal akan menampilkan menu Login Admin, Login User dan Keluar 
+- Tampilan awal akan menampilkan menu Login Admin, Login User dan Keluar 
 
 ![image](https://user-images.githubusercontent.com/122278611/235304175-30fd28ed-6c08-40d3-b29d-3d43114b90e2.png)
 
-Login Admin :
-Didalam login admin akan diminta untuk memasukan username dan password admin 
-setelah login berhasil dapat melanjutkan ke langkah selanjutnya dengan menekan enter 
+- Login Admin :
+Didalam login admin akan diminta untuk memasukan username dan password admin sesuai dengan data yang ada pada database admin.Setelah login berhasil dapat melanjutkan ke langkah selanjutnya dengan menekan enter 
 
 ![image](https://user-images.githubusercontent.com/122278611/235304674-e51fb310-a903-44c2-a15b-e114df56f5d8.png)
 
 
-Login User :
+- Login User :
 Pengguna akan diminta untuk registrasi terlebih dahulu dengan memasukkan username dan password. Setelah data dikonfirmasi atau data masuk pada database, pengguna akan diminta melakukan login sesuai dengan username dan password yang telah dibuat sebelumnya. Setelah login berhasil, pengguna akan diminta untuk menekan tombol enter untuk melanjutkan ke menu selanjutnya.
 
 Registrasi 
@@ -90,11 +89,13 @@ Login
 
 
 
-Menu Admin : 
+
+- Menu Admin : 
 Setelah menekan enter pada login admin, maka akan ditampilkan menu admin 
 Admin dapat menampilkan, Menambah, Menghapus, Mengubah, serta mencari Drama. Admin juga dapat keluar dari menu admin dan kembali pada menu awal yaitu menu login 
 
 ![image](https://user-images.githubusercontent.com/122278611/235304806-555a9a4c-c443-437f-881e-5740b65894f7.png)
+
 
 
 
@@ -104,6 +105,7 @@ Admin dapat menampilkan, Menambah, Menghapus, Mengubah, serta mencari Drama. Adm
 
 Menu ini akan menampilkan semua list drama korea yang ada, urut per abjad
 drama korea yang ditampilkan juga lengkap dengan Judul, Episode, Genre, Tahun dan Keterangan apakah drama tersebut telah selesai(completed) atau sedang berjalan(on going)
+
 
 
 
@@ -117,6 +119,7 @@ Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan ke
 
 
 
+
 3. Menghapus Drama Korea 
 
 
@@ -125,6 +128,7 @@ Dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu
 setelah memasukan judul drama yang akan dihapus maka drama akan terhapus 
 
 ![image](https://user-images.githubusercontent.com/122278611/235310857-6c6de397-5ea9-4e29-a894-b4baba317db8.png)
+
 
 
 
@@ -159,12 +163,14 @@ setelah itu drama akan diubah
 
 
 
+
 5. Mencari Drama Korea 
 
 
 untuk mencari drama admin diminta untuk memasukan judul drama, setelah itu akan menampilkan keterangan dari drama yang dicari 
 
 ![image](https://user-images.githubusercontent.com/122278611/235311151-e897bdca-d2bf-41eb-9573-763fa69856d9.png)
+
 
 
 
@@ -185,10 +191,14 @@ jika admin ingin keluar dari menu maka akan kembali pada menu awal yaitu menu lo
 
 
 
+
+
 - Menu User :
 Setelah pengguna berhasil login maka akan ditampilkan menu user yang dimana pengguna dapat menambahkan, menghapus maupun menampilkan Drama Korea yang ada dalam database watchlist.
 
 ![image](https://user-images.githubusercontent.com/122278611/235309985-9a759902-1bbe-4f80-a10d-6217a1a402cc.png)
+
+
 
 
 
@@ -200,13 +210,20 @@ Setelah pengguna berhasil login maka akan ditampilkan menu user yang dimana peng
 
 
 
+
+
 Pada menu ini pengguna dapat menambahkan Drama Korea yang ada dalam database ke dalam Watchlist nya sendiri. Dengan mencantumkan judul drama Korea yang diinginkan, maka drama tersebut akan masuk ke dalam database watchlist pengguna.
 
+
 Drama setelah ditambahkan 
+
+
 berikut adalah tampilan drama korea yang telah ditambahkan ke dalam Watchlist pengguna.
 
 
 ![image](https://user-images.githubusercontent.com/122278611/235310278-2751afb7-6544-4593-a38f-52e1dd537298.png)
+
+
 
 
 
@@ -221,7 +238,11 @@ berikut adalah tampilan drama korea yang telah ditambahkan ke dalam Watchlist pe
 
 Pada menu ini pengguna dapat menghapus drama Korea yang ada di dalam watchlist dengan memasukkan judul drama yang ingin di hapus dan drama tersebut akan di hapus dari database watchlist pengguna.
 
+
+
 3. Menampilkan Watch List
+
+
 Berikut merupakan tampilan saat pengguna memilih menu ketiga ini, yaitu akan ditampilkan watchlist pengguna
 
 
@@ -230,7 +251,11 @@ Berikut merupakan tampilan saat pengguna memilih menu ketiga ini, yaitu akan dit
 
 
 
+
+
 0. keluar dari menu 
+
+
 Jika memilih menu ini, pengguna akan keluar dari menu user dan data pengguna akan ikut terhapus dalam database dan pengguna akan kembali ke menu awal.
 
 
@@ -239,7 +264,11 @@ Jika memilih menu ini, pengguna akan keluar dari menu user dan data pengguna aka
 
 
 
-Keluar dari menu awal 
+
+
+- Keluar dari menu awal 
+
+
 Jika memilih menu ini pengguna akan keluar dari menu dan program ini berakhir.
 
 ![image](https://user-images.githubusercontent.com/122278611/235310498-7f08d171-7c36-463d-ad70-4f3cc9c29dd8.png)
