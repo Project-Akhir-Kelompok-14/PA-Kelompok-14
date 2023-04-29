@@ -108,11 +108,11 @@ drama korea yang ditampilkan juga lengkap dengan Judul, Episode, Genre, Tahun da
 
 2. Menambah Drama Korea
 
-![image](https://user-images.githubusercontent.com/122278611/235305848-b24e9047-16f5-4f7c-8072-9d1d423cd72f.png)
+![image](https://user-images.githubusercontent.com/122278611/235310808-4e2e7c14-1340-468c-930b-6547696d37b3.png)
 
 Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan keterangan. setelah itu data akan dimasukan dalam data
 
-![image](https://user-images.githubusercontent.com/122278611/235305935-510282db-708b-4170-ae18-6b63608f840f.png)
+![image](https://user-images.githubusercontent.com/122278611/235310820-ff8e79af-c9fb-4051-9785-8b44c969138b.png)
 
 
 
@@ -121,11 +121,9 @@ Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan ke
 
 Dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.
 
-![image](https://user-images.githubusercontent.com/122278611/235306172-5cd06bef-7ff3-4185-894a-3b6511946911.png)
-
 setelah memasukan judul drama yang akan dihapus maka drama akan terhapus 
 
-![image](https://user-images.githubusercontent.com/122278611/235306220-ded7a245-bbd3-4085-b3ed-d5886a1bcc65.png)
+![image](https://user-images.githubusercontent.com/122278611/235310857-6c6de397-5ea9-4e29-a894-b4baba317db8.png)
 
 
 
@@ -133,18 +131,16 @@ setelah memasukan judul drama yang akan dihapus maka drama akan terhapus
 
 
 Dalam menu ini admin diminta untuk memasukan judul dan tahun rilis drama yang akan diubah. setelah itu program akan mencari drama yang telah di input 
-
-![image](https://user-images.githubusercontent.com/122278611/235306930-00967431-6655-46f6-9d4f-49bf79f41083.png)
+![image](https://user-images.githubusercontent.com/122278611/235310952-5908f3b9-9873-4e52-9ef6-7bc7ba7a8b75.png)
 
 
 setelah menemukan drama yang akan diubah admin akan diminta untuk memasukan judul, jumlah episode, genre, tahun rilis, dan keterangan drama yang akan diubah
 
-![image](https://user-images.githubusercontent.com/122278611/235307254-38ab837d-23e7-4e15-937a-47f6b92e3740.png)
+![image](https://user-images.githubusercontent.com/122278611/235311097-a233c602-cc68-4f2a-9943-d52d20d53d5e.png)
 
 
 setelah itu drama akan diubah 
-
-![image](https://user-images.githubusercontent.com/122278611/235307285-22d63aa4-92fd-48b1-8c6e-379b864a7df4.png)
+![image](https://user-images.githubusercontent.com/122278611/235311126-b601cd98-5160-4617-b1ca-ba63fb7f1ad2.png)
 
 
 
@@ -154,7 +150,7 @@ setelah itu drama akan diubah
 
 untuk mencari drama admin diminta untuk memasukan judul drama, setelah itu akan menampilkan keterangan dari drama yang dicari 
 
-![image](https://user-images.githubusercontent.com/122278611/235307394-6c831d16-6fdd-48b3-84d4-e2d3102fd265.png)
+![image](https://user-images.githubusercontent.com/122278611/235311151-e897bdca-d2bf-41eb-9573-763fa69856d9.png)
 
 
 
