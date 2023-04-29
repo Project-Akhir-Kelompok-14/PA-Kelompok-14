@@ -107,6 +107,8 @@ Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan ke
 
 
 3. Menghapus Drama Korea 
+
+
 Dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.
 
 ![image](https://user-images.githubusercontent.com/122278611/235306172-5cd06bef-7ff3-4185-894a-3b6511946911.png)
@@ -118,6 +120,8 @@ setelah memasukan judul drama yang akan dihapus maka drama akan terhapus
 
 
 4. Mengubah Drama Korea 
+
+
 Dalam menu ini admin diminta untuk memasukan judul dan tahun rilis drama yang akan diubah. setelah itu program akan mencari drama yang telah di input 
 
 ![image](https://user-images.githubusercontent.com/122278611/235306930-00967431-6655-46f6-9d4f-49bf79f41083.png)
@@ -136,6 +140,8 @@ setelah itu drama akan diubah
 
 
 5. Mencari Drama Korea 
+
+
 untuk mencari drama admin diminta untuk memasukan judul drama, setelah itu akan menampilkan keterangan dari drama yang dicari 
 
 ![image](https://user-images.githubusercontent.com/122278611/235307394-6c831d16-6fdd-48b3-84d4-e2d3102fd265.png)
