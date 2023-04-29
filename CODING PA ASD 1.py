@@ -76,49 +76,25 @@ def merge(left, right):
     result += left[i:]
     result += right[j:]
     return result
-
-
-def merge_watchlist():
-    cursor = mydb.cursor()
-
-    # Melakukan pengurutan dengan Merge Sort
-    sorted_data = merge_sort(cursor, "watchlist")
-
-    # Update data lama dengan data baru yang sudah diurutkan
-    for i, item in enumerate(sorted_data):
-        cursor.execute(f"UPDATE watchlist SET Judul = '{item}' WHERE id = {i+1}")
-
-    mydb.commit()
-
-    cursor.close()
-    mydb.close()
     
 ########################### SEARCH ###########################
-def jump_search(judul, watchlist):
-    cursor = mydb.cursor()
-    cursor.execute(f"SELECT * FROM {watchlist} ORDER BY Judul")
-    data = cursor.fetchall()
-    
-    n = len(data)
+def jump_search(drakor_list, x):
+    n = len(drakor_list)
     step = int(math.sqrt(n))
     prev = 0
-    
-    while data[min(step, n)-1][1] < judul:
+    while drakor_list[min(step, n)-1] < x:
         prev = step
         step += int(math.sqrt(n))
         if prev >= n:
             return -1
-    
-    while data[prev][1] < judul:
+    while drakor_list[prev] < x:
         prev += 1
-        
         if prev == min(step, n):
             return -1
-    
-    if data[prev][1] == judul:
-        return data[prev]
-    
+    if drakor_list[prev] == x:
+        return prev
     return -1
+
 ########################### FUNGSI MENU USER ###########################
 def tambah_drama():
     os.system("cls")
@@ -162,7 +138,7 @@ def hapus_drama():
         print("Drama Korea Tidak Tersedia")
 
 def tampil_drama():
-    os.system("cls")
+    os.system("cls")   
     cursor = mydb.cursor()
     cursor.execute("SELECT * FROM watchlist")
     result = cursor.fetchall()
@@ -183,6 +159,7 @@ def hapus_user():
     sql = "DELETE FROM user "
     mycursor.execute(sql)
     mydb.commit()
+
 def hapus_watchlist():
     mycursor = mydb.cursor()
     sql = "DELETE FROM watchlist"
@@ -204,6 +181,7 @@ def show_drama():
         os.system("cls")
     else:
         result_sorted = merge_sort(data_list, cursor, 'drakor')
+        print("(•̀ᴗ•́)و LIST DRAMA KOREA (•̀ᴗ•́)و")
         print("===============================================================================================")
         print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
         print("===============================================================================================")
@@ -279,6 +257,30 @@ def delete_drama():
         print("Drama Korea Tidak Tersedia")
         print(input("Tekan Enter Untuk Melanjutkan..."))
         os.system("cls")
+
+def cari_drakor():
+    os.system("cls")
+    cursor = mydb.cursor()
+    print("====================================")
+    print("          CARI DRAMA KOREA           ")
+    print("====================================")
+    keyword = input("Masukkan Judul: ")
+    cursor.execute(f"SELECT * FROM drakor WHERE Judul LIKE '%{keyword}%'")
+    results = cursor.fetchall()
+    if results:
+        print("====================================")
+        print("          HASIL PENCARIAN            ")
+        print("====================================")
+        for result in results:
+            print("{:<10} : {}".format("Judul", result[0]))
+            print("{:<10} : {}".format("Episode", result[1]))
+            print("{:<10} : {}".format("Genre", result[2]))
+            print("{:<10} : {}".format("Tahun", result[3]))
+            print("{:<10} : {}".format("Keterangan", result[4]))
+            print(input("Tekan Enter Untuk Melanjutkan..."))
+            os.system("cls")
+    else:
+        print("Drama Korea tidak ditemukan.")
 
 def update_drama():
     mycursor = mydb.cursor()
@@ -432,6 +434,7 @@ def menu_admin():
         print("{:<3} {:<40}".format("2.", "Menambahkan Drama Korea"))
         print("{:<3} {:<40}".format("3.", "Menghapus Drama Korea"))
         print("{:<3} {:<40}".format("4.", "Mengubah Drama Korea"))
+        print("{:<3} {:<40}".format("5.", "Cari Drama Korea"))
         print("{:<3} {:<40}".format("0.", "Keluar dari Menu"))
         # Mencetak footer
         print("=" * 50)
@@ -451,6 +454,9 @@ def menu_admin():
             elif pilih == 4:
                 os.system("cls")
                 update_drama()
+            elif pilih == 5:
+                os.system("cls")
+                cari_drakor()
             elif pilih == 0:
                 os.system("cls")
                 menu_utama()
