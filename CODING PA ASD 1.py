@@ -48,14 +48,7 @@ for drama in dramas:
 
 
 ########################### SORTING ###########################
-def merge_sort(cursor, drakor):
-    # Mendapatkan data dari database
-    cursor.execute(f"SELECT Judul FROM {drakor}")
-    data = cursor.fetchall()
-
-    # Mengkonversi data ke dalam list
-    data_list = [item[0] for item in data]
-
+def merge_sort(data_list, cursor, drakor):
     if len(data_list) <= 1:
         return data_list
 
@@ -64,12 +57,11 @@ def merge_sort(cursor, drakor):
     right = data_list[mid:]
 
     # Rekursif untuk melakukan pengurutan pada setiap bagian
-    left = merge_sort(cursor, drakor)
-    right = merge_sort(cursor, drakor)
+    left = merge_sort(left, cursor, drakor)
+    right = merge_sort(right, cursor, drakor)
 
     # Merge dua bagian yang telah diurutkan
     return merge(left, right)
-
 
 def merge(left, right):
     result = []
@@ -203,19 +195,24 @@ def hapus_watchlist():
 ########################### FUNGSI MENU ADMIN ###########################
 def show_drama():
     cursor = mydb.cursor()
-    cursor.execute("SELECT * FROM drakor")
-    result = cursor.fetchall()
-    if len(result) == 0:
-        print("Tidak ada drama di watchlist saat ini.")
+    cursor.execute("SELECT Judul FROM drakor")
+    data = cursor.fetchall()
+    data_list = [item[0] for item in data]
+    if len(data_list) == 0:
+        print("Tidak ada drama saat ini.")
         print(input("Tekan Enter Untuk Melanjutkan..."))
         os.system("cls")
     else:
+        result_sorted = merge_sort(data_list, cursor, 'drakor')
         print("===============================================================================================")
         print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
         print("===============================================================================================")
-        for data in result:
-            print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
+        for data in result_sorted:
+            cursor.execute(f"SELECT * FROM drakor WHERE Judul='{data}'")
+            row = cursor.fetchone()
+            print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(row[0], row[1], row[2], row[3], row[4]))
         print("===============================================================================================")
+
 
 def add_drama():
     # buat cursor
