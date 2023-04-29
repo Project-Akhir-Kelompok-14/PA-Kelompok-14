@@ -30,8 +30,8 @@ Kami menggunakan Singly Linked List yang hanya memiliki satu variabel pointer un
 ### Function
 
 Kami menggunakan Fungsi Def dalam program yang kami buat 
-Fungsi adalah kumpulan perintah atau baris kode yang dikelompokkan menjadi satu kesatuan untuk kemudian bisa dipanggil atau digunakan berkali-kali.\
-[;ll.,
+Fungsi adalah kumpulan perintah atau baris kode yang dikelompokkan menjadi satu kesatuan untuk kemudian bisa dipanggil atau digunakan berkali-kali 
+
 ---
 
 
