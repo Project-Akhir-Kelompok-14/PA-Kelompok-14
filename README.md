@@ -185,8 +185,8 @@ jika admin ingin keluar dari menu maka akan kembali pada menu awal yaitu menu lo
 
 
 
-Menu User 
-
+Menu User :
+Setelah pengguna berhasil login maka akan ditampilkan menu user yang dimana pengguna dapat menambahkan, menghapus maupun menampilkan Drama Korea yang ada dalam database watchlist.
 
 ![image](https://user-images.githubusercontent.com/122278611/235309985-9a759902-1bbe-4f80-a10d-6217a1a402cc.png)
 
