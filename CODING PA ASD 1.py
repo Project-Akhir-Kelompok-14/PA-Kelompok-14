@@ -228,15 +228,7 @@ def add_drama():
 def delete_drama():
     mycursor = mydb.cursor()
     # Menampilkan data
-    mycursor.execute("SELECT * FROM drakor")
-    result = mycursor.fetchall()
-    print("===============================================================================================")
-    print("{:<30} {:<20} {:<20} {:<10} {:<30}".format('Judul', 'Episode', 'Genre', 'Tahun', 'Keterangan'))
-    print("===============================================================================================")
-    for data in result:
-        print("{:<30} {:<20} {:<20} {:<10} {:<30}".format(data[0], data[1], data[2], data[3], data[4]))
-    print("===============================================================================================")
-
+    show_drama()
     # Meminta input id yang akan dihapus
     hapus_judul = input("Masukkan judul yang akan dihapus: ")
     # Query untuk menghapus data berdasarkan id
@@ -249,7 +241,7 @@ def delete_drama():
     result = cursor.fetchall()
     # Melakukan commit untuk menyimpan perubahan
     mydb.commit()
-    if hapus_judul in result:
+    if result:
         print(mycursor.rowcount, "Data Berhasil Di Hapus")
         print(input("Tekan Enter Untuk Melanjutkan..."))
         os.system("cls")
@@ -298,7 +290,13 @@ def update_drama():
         os.system("cls")
     else:
         print("Data yang ingin diubah adalah: ")
-        print(result)
+        print("--------------------------------")
+        print("{:<10} : {}".format("Judul", result[0]))
+        print("{:<10} : {}".format("Episode", result[1]))
+        print("{:<10} : {}".format("Genre", result[2]))
+        print("{:<10} : {}".format("Tahun", result[3]))
+        print("{:<10} : {}".format("Keterangan", result[4]))
+        print("--------------------------------")
 
         # Mengambil data baru dari pengguna
         judul_baru = input("Masukkan judul baru: ")
@@ -415,7 +413,7 @@ def menu_user():
                 os.system("cls")
             elif menu == 0:
                 hapus_user()
-                hapus_watchlist
+                hapus_watchlist()
                 break
             else :
                 print("Opsi tidak valid")
@@ -459,7 +457,7 @@ def menu_admin():
                 cari_drakor()
             elif pilih == 0:
                 os.system("cls")
-                menu_utama()
+                break
             else :
                 print("Opsi tidak valid")
             
