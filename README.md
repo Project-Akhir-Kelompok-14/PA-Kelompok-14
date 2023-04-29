@@ -185,14 +185,14 @@ jika admin ingin keluar dari menu maka akan kembali pada menu awal yaitu menu lo
 
 
 
-Menu User :
+- Menu User :
 Setelah pengguna berhasil login maka akan ditampilkan menu user yang dimana pengguna dapat menambahkan, menghapus maupun menampilkan Drama Korea yang ada dalam database watchlist.
 
 ![image](https://user-images.githubusercontent.com/122278611/235309985-9a759902-1bbe-4f80-a10d-6217a1a402cc.png)
 
 
 
-1. Menambahkan Drama Korea ke dalam Watchlist
+1. Menambahkan Drama Korea ke dalam Watchlist 
 
 
 ![image](https://user-images.githubusercontent.com/122278611/235310042-d8418770-0f6b-43be-909b-fa26700eb011.png)
@@ -200,13 +200,18 @@ Setelah pengguna berhasil login maka akan ditampilkan menu user yang dimana peng
 
 
 
-drama setelah ditambahkan 
+Pada menu ini pengguna dapat menambahkan Drama Korea yang ada dalam database ke dalam Watchlist nya sendiri. Dengan mencantumkan judul drama Korea yang diinginkan, maka drama tersebut akan masuk ke dalam database watchlist pengguna.
+
+Drama setelah ditambahkan 
+berikut adalah tampilan drama korea yang telah ditambahkan ke dalam Watchlist pengguna.
+
 
 ![image](https://user-images.githubusercontent.com/122278611/235310278-2751afb7-6544-4593-a38f-52e1dd537298.png)
 
 
 
-2. menghapus drama 
+
+2. Menghapus Drama Korea Dalam Watchlist 
 
 
 
@@ -214,22 +219,28 @@ drama setelah ditambahkan
 
 
 
+Pada menu ini pengguna dapat menghapus drama Korea yang ada di dalam watchlist dengan memasukkan judul drama yang ingin di hapus dan drama tersebut akan di hapus dari database watchlist pengguna.
 
 3. Menampilkan Watch List
+Berikut merupakan tampilan saat pengguna memilih menu ketiga ini, yaitu akan ditampilkan watchlist pengguna
 
 
 ![image](https://user-images.githubusercontent.com/122278611/235310416-bf932ca9-df7f-42a1-aeea-7b54e78eaf25.png)
 
 
 
+
 0. keluar dari menu 
+Jika memilih menu ini, pengguna akan keluar dari menu user dan data pengguna akan ikut terhapus dalam database dan pengguna akan kembali ke menu awal.
 
 
 ![image](https://user-images.githubusercontent.com/122278611/235310461-4fbb7aad-8a26-4064-b76f-cadb082c4a0f.png)
 
 
 
+
 Keluar dari menu awal 
+Jika memilih menu ini pengguna akan keluar dari menu dan program ini berakhir.
 
 ![image](https://user-images.githubusercontent.com/122278611/235310498-7f08d171-7c36-463d-ad70-4f3cc9c29dd8.png)
 
