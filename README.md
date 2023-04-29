@@ -91,7 +91,7 @@ Admin dapat menampilkan, Menambah, Menghapus, Mengubah, serta mencari Drama. Adm
 
 ![image](https://user-images.githubusercontent.com/122278611/235304897-013c386b-18aa-42ca-803c-6fe86fb33916.png)
 
-menu ini akan menampilkan semua list drama korea yang ada, urut per abjad
+Menu ini akan menampilkan semua list drama korea yang ada, urut per abjad
 drama korea yang ditampilkan juga lengkap dengan Judul, Episode, Genre, Tahun dan Keterangan apakah drama tersebut telah selesai(completed) atau sedang berjalan(on going)
 
 
@@ -107,13 +107,45 @@ Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan ke
 
 
 3. Menghapus Drama Korea 
-dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.
+Dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.
 
 ![image](https://user-images.githubusercontent.com/122278611/235306172-5cd06bef-7ff3-4185-894a-3b6511946911.png)
 
 setelah memasukan judul drama yang akan dihapus maka drama akan terhapus 
 
 ![image](https://user-images.githubusercontent.com/122278611/235306220-ded7a245-bbd3-4085-b3ed-d5886a1bcc65.png)
+
+
+
+4. Mengubah Drama Korea 
+Dalam menu ini admin diminta untuk memasukan judul dan tahun rilis drama yang akan diubah. setelah itu program akan mencari drama yang telah di input 
+
+![image](https://user-images.githubusercontent.com/122278611/235306930-00967431-6655-46f6-9d4f-49bf79f41083.png)
+
+
+setelah menemukan drama yang akan diubah admin akan diminta untuk memasukan judul, jumlah episode, genre, tahun rilis, dan keterangan drama yang akan diubah
+
+![image](https://user-images.githubusercontent.com/122278611/235307254-38ab837d-23e7-4e15-937a-47f6b92e3740.png)
+
+
+setelah itu drama akan diubah 
+
+![image](https://user-images.githubusercontent.com/122278611/235307285-22d63aa4-92fd-48b1-8c6e-379b864a7df4.png)
+
+
+
+
+5. Mencari Drama Korea 
+untuk mencari drama admin diminta untuk memasukan judul drama, setelah itu akan menampilkan keterangan dari drama yang dicari 
+
+![image](https://user-images.githubusercontent.com/122278611/235307394-6c831d16-6fdd-48b3-84d4-e2d3102fd265.png)
+
+
+
+
+
+
+
 
 
 
