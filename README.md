@@ -183,24 +183,38 @@ Menu User
 
 
 
+drama setelah ditambahkan 
+
+![image](https://user-images.githubusercontent.com/122278611/235310278-2751afb7-6544-4593-a38f-52e1dd537298.png)
+
+
+
+2. menghapus drama 
+
+
+
+![image](https://user-images.githubusercontent.com/122278611/235310378-32ffcd29-a647-44c6-9480-81fa71955493.png)
 
 
 
 
+3. Menampilkan Watch List
+
+
+![image](https://user-images.githubusercontent.com/122278611/235310416-bf932ca9-df7f-42a1-aeea-7b54e78eaf25.png)
 
 
 
+0. keluar dari menu 
+
+
+![image](https://user-images.githubusercontent.com/122278611/235310461-4fbb7aad-8a26-4064-b76f-cadb082c4a0f.png)
 
 
 
+Keluar dari menu awal 
 
-
-
-
-
-
-
-
+![image](https://user-images.githubusercontent.com/122278611/235310498-7f08d171-7c36-463d-ad70-4f3cc9c29dd8.png)
 
 
 
