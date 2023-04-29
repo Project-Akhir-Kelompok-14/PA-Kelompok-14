@@ -67,6 +67,7 @@ Untuk Admin:
 ## Cara Penggunaan
 
 Tampilan awal akan menampilkan menu Login Admin, Login User dan Keluar 
+
 ![image](https://user-images.githubusercontent.com/122278611/235304175-30fd28ed-6c08-40d3-b29d-3d43114b90e2.png)
 
 Login Admin :
@@ -90,7 +91,8 @@ Dalam Menu ini admin diminta untuk memasukan judul, jumlah, genre, tahun, dan ke
 ![image](https://user-images.githubusercontent.com/122278611/235305935-510282db-708b-4170-ae18-6b63608f840f.png)
 
 3. Menghapus Drama Korea 
-dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.![image](https://user-images.githubusercontent.com/122278611/235306172-5cd06bef-7ff3-4185-894a-3b6511946911.png)
+dalam menu ini admin diminta untuk memasukan judul drama yang akan dihapus, menu ini juga menampilkan list drama korea yang ada agar memudahkan admin untuk mencari judul drama yang ingin dihapus.
+![image](https://user-images.githubusercontent.com/122278611/235306172-5cd06bef-7ff3-4185-894a-3b6511946911.png)
 setelah memasukan judul drama yang akan dihapus maka drama akan terhapus 
 ![image](https://user-images.githubusercontent.com/122278611/235306220-ded7a245-bbd3-4085-b3ed-d5886a1bcc65.png)
 
