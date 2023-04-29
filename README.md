@@ -131,16 +131,29 @@ setelah memasukan judul drama yang akan dihapus maka drama akan terhapus
 
 
 Dalam menu ini admin diminta untuk memasukan judul dan tahun rilis drama yang akan diubah. setelah itu program akan mencari drama yang telah di input 
+
+
 ![image](https://user-images.githubusercontent.com/122278611/235310952-5908f3b9-9873-4e52-9ef6-7bc7ba7a8b75.png)
+
+
 
 
 setelah menemukan drama yang akan diubah admin akan diminta untuk memasukan judul, jumlah episode, genre, tahun rilis, dan keterangan drama yang akan diubah
 
+
 ![image](https://user-images.githubusercontent.com/122278611/235311097-a233c602-cc68-4f2a-9943-d52d20d53d5e.png)
 
 
+
 setelah itu drama akan diubah 
+
+
 ![image](https://user-images.githubusercontent.com/122278611/235311126-b601cd98-5160-4617-b1ca-ba63fb7f1ad2.png)
+
+
+
+
+
 
 
 
@@ -154,12 +167,19 @@ untuk mencari drama admin diminta untuk memasukan judul drama, setelah itu akan 
 
 
 
+
+
+
+
 0. Keluar dari Menu 
 
 jika admin ingin keluar dari menu maka akan kembali pada menu awal yaitu menu login 
 
 
 ![image](https://user-images.githubusercontent.com/122278611/235307565-35846b54-7229-4842-9931-167571333521.png)
+
+
+
 
 
 
