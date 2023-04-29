@@ -168,6 +168,24 @@ jika admin ingin keluar dari menu maka akan kembali pada menu awal yaitu menu lo
 
 
 
+Menu User 
+
+
+![image](https://user-images.githubusercontent.com/122278611/235309985-9a759902-1bbe-4f80-a10d-6217a1a402cc.png)
+
+
+
+1. Menambahkan Drama Korea ke dalam Watchlist
+
+
+![image](https://user-images.githubusercontent.com/122278611/235310042-d8418770-0f6b-43be-909b-fa26700eb011.png)
+
+
+
+
+
+
+
 
 
 
