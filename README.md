@@ -148,6 +148,16 @@ untuk mencari drama admin diminta untuk memasukan judul drama, setelah itu akan 
 
 
 
+0. Keluar dari Menu 
+
+jika admin ingin keluar dari menu maka akan kembali pada menu awal yaitu menu login 
+
+
+![image](https://user-images.githubusercontent.com/122278611/235307565-35846b54-7229-4842-9931-167571333521.png)
+
+
+
+
 
 
 
