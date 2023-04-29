@@ -16,8 +16,22 @@ Program Watchlist adalah program yang memungkinkan pengguna untuk mencatat dafta
 - Os: Os digunakan untuk membersihkan layar terminal, sehingga tampilan menjadi lebih rapi dan mudah dibaca. 
 - MySQL Connector: MySQL Connector digunakan untuk menghubungkan program Python dengan database MySQL. 
 ### Linked List
+Link List adalah struktur data yang terdiri dari urutan record data dimana setiapbrecord memilikifield yang menyimpan alamat/referensi dari record selanjutnya (dalam urutan).Elemen data yang dihubungkan dengan link pada linked list disebut Node.
+
+di dalam Linked List memiliki 
+- Head : Elemen yang berada pada posisi pertama 
+- Tail : Elemen yang berada pada posisi terakhir 
+
+Oprasi yang kami gunakan dalam Linked List adalah "add" yang berfungsi untuk menambahkan data
+
+Kami menggunakan Singly Linked List yang hanya memiliki satu variabel pointer untuk menyimpan banyak data
+
 ---
 ### Function
+
+Kami menggunakan Fungsi Def dalam program yang kami buat 
+Fungsi adalah kumpulan perintah atau baris kode yang dikelompokkan menjadi satu kesatuan untuk kemudian bisa dipanggil atau digunakan berkali-kali.\
+[;ll.,
 ---
 
 
